@@ -16,7 +16,7 @@
 
     <style>
         /* =========================================================
-           AAPKA ORIGINAL CSS (EK BHI LINE NAHI BADLI)
+           ORIGINAL + UPGRADED CSS (Sab kuch ek saath - NO UI CHANGE)
         ========================================================= */
         :root {
             --cream: #F5F0EB; --beige: #E8DED1; --warm-beige: #D5C8B5; --sand: #C4B5A5;
@@ -145,13 +145,6 @@
         .footer ul li a:hover { color:#fff; } .footer-social { display:flex; gap:1rem; margin-top:1rem; } .footer-social a { color:#999; font-size:1.1rem; }
         .footer-bottom { max-width:1400px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid #333; display:flex; justify-content:space-between; font-size:0.72rem; color:#888; }
 
-        @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } }
-        @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
-
-        /* ====================================================================
-           MODALS, CARTS, ADMIN & PAGE LOGIC CSS
-        ==================================================================== */
         .cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; opacity:0; pointer-events:none; transition:var(--transition); }
         .cart-overlay.active { opacity:1; pointer-events:all; }
         .cart-sidebar { position:fixed; top:0; right:-460px; width:440px; max-width:92vw; height:100vh; background:#fff; z-index:2100; transition:var(--transition-slow); display:flex; flex-direction:column; box-shadow:var(--shadow-xl); }
@@ -193,14 +186,21 @@
         .pdp-container { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; background:#fff; padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
         .pdp-image-box { aspect-ratio:3/4; background:var(--light-gray); border-radius:var(--radius-md); overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:8rem; }
         .pdp-image-box img { width:100%; height:100%; object-fit:cover; }
+        .pdp-category { font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; color:var(--gray); margin-bottom:0.5rem; }
         .pdp-title { font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:700; margin-bottom:1rem; line-height:1.1;}
-        .pdp-price { font-size:1.8rem; font-weight:700; margin-bottom:2rem; }
+        .pdp-price { font-size:1.8rem; font-weight:700; margin-bottom:2rem; display:flex; align-items:baseline; gap:0.5rem; }
+        .pdp-original-price { font-size:1rem; color:#bbb; text-decoration:line-through; font-weight:400; }
+        .pdp-section-title { font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; color:var(--dark-gray); }
         .pdp-sizes { display:flex; gap:10px; margin-bottom:2rem; }
-        .pdp-size-btn { width:45px; height:45px; border:1.5px solid var(--border); background:transparent; font-weight:600; border-radius:var(--radius-sm); cursor:pointer; }
-        .pdp-size-btn.active { background:var(--black); color:#fff; }
+        .pdp-size-btn { width:45px; height:45px; border:1.5px solid var(--border); background:transparent; font-weight:600; border-radius:var(--radius-sm); cursor:pointer; transition:0.2s; }
+        .pdp-size-btn:hover { border-color:var(--black); }
+        .pdp-size-btn.active { background:var(--black); color:#fff; border-color:var(--black); }
         .pdp-colors { display:flex; gap:12px; margin-bottom:2.5rem; }
-        .pdp-color-dot { width:24px; height:24px; border-radius:50%; cursor:pointer; border:2px solid transparent; }
+        .pdp-color-dot { width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:0.2s; }
+        .pdp-color-dot:hover { transform:scale(1.1); }
         .pdp-color-dot.active { box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--black); }
+        .pdp-actions { display:flex; gap:1rem; margin-top:1rem; }
+        .pdp-actions .btn { justify-content:center; padding:16px; flex:1; }
         
         .admin-dashboard { max-width:1400px; margin:2rem auto; display:grid; grid-template-columns:250px 1fr; gap:2rem; padding:0 2.5rem; }
         .admin-sidebar { background:#fff; padding:2rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm); height:fit-content; }
@@ -211,12 +211,13 @@
         .admin-table th, .admin-table td { padding:12px; border-bottom:1px solid var(--border-light); text-align:left; }
         .magic-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 
-        @media(max-width:900px){ .pdp-container, .admin-dashboard{grid-template-columns:1fr;} }
+        @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
+        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } .pdp-container, .admin-dashboard{grid-template-columns:1fr;} }
+        @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
     </style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR & NAVBAR (Visbible everywhere) -->
 <div class="announcement-bar">
     EXTRA 20% OFF ON PREPAID ORDERS &nbsp;|&nbsp; <span>FREE SHIPPING</span> ON ORDERS OVER ₹2,999
 </div>
@@ -241,10 +242,8 @@
     </div>
 </nav>
 
-<!-- ================= 1. HOME PAGE (UNTOUCHED UI) ================= -->
+<!-- ================= 1. HOME PAGE ================= -->
 <div id="homePage" class="page-view active">
-    
-    <!-- Hero Slider -->
     <section class="hero" id="home">
         <div class="hero-left">
             <p class="hero-tag" id="heroTag">New Arrivals</p>
@@ -272,20 +271,16 @@
                 <p class="section-tag">Shop by Category</p>
                 <h2 class="section-title">Collections</h2>
             </div>
-            <!-- FIXED UI FOR HOME PAGE CATEGORIES -->
-            <div class="categories-grid">
-                <div class="category-card" onclick="openCategoryProducts('Men')"><img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80" alt="Men"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Men</h3><span>Shop Now →</span></div></div>
-                <div class="category-card" onclick="openCategoryProducts('Women')"><img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80" alt="Women"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Women</h3><span>Shop Now →</span></div></div>
-                <div class="category-card" onclick="openCategoryProducts('Hoodies')"><img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="Hoodies"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Hoodies</h3><span>Shop Now →</span></div></div>
-                <div class="category-card" onclick="openCategoryProducts('Shoes')"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Shoes"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Shoes</h3><span>Shop Now →</span></div></div>
-            </div>
+            
+            <!-- HOME PAGE CATEGORIES ARE NOW DYNAMIC (Generated by JS) -->
+            <div class="categories-grid" id="homeCategoriesGrid"></div>
+            
             <div style="text-align:center; margin-top:2rem;">
                 <button class="btn btn-outline" onclick="switchPage('allCategoriesPage')">View All Categories</button>
             </div>
         </div>
     </section>
 
-    <!-- Product listing -->
     <section class="section" id="shop">
         <div class="container">
             <div class="section-header">
@@ -297,7 +292,6 @@
         </div>
     </section>
 
-    <!-- Benefits -->
     <div class="benefits-strip">
         <div class="benefit-item"><span class="benefit-icon">📦</span><h4>Free Shipping</h4><p>On orders over ₹2,999</p></div>
         <div class="benefit-item"><span class="benefit-icon">↩️</span><h4>Easy Returns</h4><p>7-day hassle-free</p></div>
@@ -305,7 +299,6 @@
         <div class="benefit-item"><span class="benefit-icon">💬</span><h4>Customer Support</h4><p>24/7 on WhatsApp</p></div>
     </div>
 
-    <!-- Newsletter (About) -->
     <div class="newsletter" id="about">
         <div class="newsletter-left"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="Newsletter"></div>
         <div class="newsletter-right">
@@ -318,7 +311,6 @@
         </div>
     </div>
 
-    <!-- Instagram -->
     <div class="instagram-section">
         <p class="section-tag">@BOYZONE.OFFICIAL</p>
         <div class="instagram-grid">
@@ -331,7 +323,6 @@
         </div>
     </div>
 
-    <!-- Footer (Contact) -->
     <footer class="footer" id="contact">
         <div class="footer-grid">
             <div>
@@ -344,7 +335,9 @@
             </div>
             <div>
                 <h4>Shop</h4>
-                <ul><li><a onclick="openCategoryProducts('Men')">Men</a></li><li><a onclick="openCategoryProducts('Women')">Women</a></li><li><a onclick="openCategoryProducts('Hoodies')">Hoodies</a></li><li><a onclick="openCategoryProducts('Shoes')">Shoes</a></li></ul>
+                <ul id="footerCategoryLinks">
+                    <!-- Dynamic links injected here -->
+                </ul>
             </div>
             <div>
                 <h4>Help</h4>
@@ -364,7 +357,6 @@
     </footer>
 </div>
 <!-- END OF HOME PAGE WRAPPER -->
-
 
 <!-- ================= 2. ALL CATEGORIES PAGE (DYNAMIC) ================= -->
 <div id="allCategoriesPage" class="page-view">
@@ -423,7 +415,7 @@
             <form id="adminForm" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem;">
                 <input type="hidden" id="editProdId">
                 <div><label style="font-size:0.85rem; font-weight:600;">Product Name</label><input type="text" id="prodName" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <!-- Category Select is dynamic now -->
+                <!-- Category Select is dynamic -->
                 <div><label style="font-size:0.85rem; font-weight:600;">Category</label><select id="prodCategory" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></select></div>
                 <div><label style="font-size:0.85rem; font-weight:600;">Price (₹)</label><input type="number" id="prodPrice" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
                 <div><label style="font-size:0.85rem; font-weight:600;">Original Price (₹)</label><input type="number" id="prodOriginal" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></div>
@@ -442,16 +434,22 @@
 
         <!-- Tab 3: Manage Categories -->
         <div class="admin-content" style="display:none;" id="categoryTab">
-            <h2 style="margin-bottom:1rem;">Add New Category</h2>
-            <form id="adminCategoryForm" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border-light);">
+            <h2 id="adminCatFormTitle" style="margin-bottom:1rem;">Add New Category</h2>
+            <form id="adminCategoryForm" style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border-light);">
+                <input type="hidden" id="editCatId">
                 <div><label style="font-size:0.85rem; font-weight:600;">Category Name</label><input type="text" id="newCatName" placeholder="e.g. Watches" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <div><label style="font-size:0.85rem; font-weight:600;">Cover Image URL</label><input type="text" id="newCatImage" placeholder="https://..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <button type="submit" class="btn btn-black" style="grid-column: span 2; justify-content:center;">Add Category</button>
+                <div style="padding:1.5rem; border:1px dashed #ccc; border-radius:8px; background:#fafafa;">
+                    <label style="font-weight:600; display:block; margin-bottom:10px;">Upload Category Cover Image OR Paste Link</label>
+                    <input type="file" id="catImageFile" accept="image/*" style="margin-bottom:15px; width:100%;">
+                    <p style="font-size:0.75rem; color:#888; margin-bottom:5px;">OR paste URL:</p>
+                    <input type="text" id="newCatImage" placeholder="https://..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                </div>
+                <button type="submit" class="btn btn-black" style="justify-content:center;" id="adminCatSubmitBtn">Add Category</button>
             </form>
 
             <h2>Existing Categories</h2>
             <table class="admin-table">
-                <thead><tr><th>Image</th><th>Category Name</th><th>Action</th></tr></thead>
+                <thead><tr><th>Image</th><th>Category Name</th><th>Actions</th></tr></thead>
                 <tbody id="adminCategoryTableBody"></tbody>
             </table>
         </div>
@@ -571,17 +569,14 @@
         const snapshot = await getDocs(q);
         categoriesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         
-        // Auto-seed Categories if database is completely empty so UI doesn't look blank
+        // Removed "Shoes" from default seed data per your request
         if(categoriesList.length === 0) {
             const defaults = [
                 {name: "Men", imageUrl: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80"},
                 {name: "Women", imageUrl: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80"},
                 {name: "Jeans", imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80"},
                 {name: "Kurtas", imageUrl: "https://images.unsplash.com/photo-1596455607563-ad6193f78b5c?auto=format&fit=crop&w=600&q=80"},
-                {name: "Hoodies", imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"},
-                {name: "Shoes", imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"},
-                {name: "Jackets", imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80"},
-                {name: "Accessories", imageUrl: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=600&q=80"}
+                {name: "Hoodies", imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"}
             ];
             for(let d of defaults) await addDoc(collection(db, "categories"), d);
             const snap2 = await getDocs(q);
@@ -589,7 +584,7 @@
         }
 
         renderAdminCategories();
-        renderAllCategoriesPage();
+        renderAllCategoriesPages();
         updateProductCategoryDropdown();
     }
 
@@ -599,10 +594,24 @@
             <tr>
                 <td><img src="${c.imageUrl}" width="50" height="50" style="object-fit:cover; border-radius:4px;"></td>
                 <td style="font-weight:600;">${c.name}</td>
-                <td><button onclick="deleteCategory('${c.id}')" style="background:none; border:none; cursor:pointer; color:red;"><i class="fa-solid fa-trash"></i></button></td>
+                <td>
+                    <button onclick="editCategory('${c.id}')" style="margin-right:10px; background:none; border:none; cursor:pointer; color:blue;"><i class="fa-solid fa-pen"></i></button>
+                    <button onclick="deleteCategory('${c.id}')" style="background:none; border:none; cursor:pointer; color:red;"><i class="fa-solid fa-trash"></i></button>
+                </td>
             </tr>
         `).join('');
     }
+
+    window.editCategory = function(id) {
+        const c = categoriesList.find(x => x.id === id);
+        if(!c) return;
+        document.getElementById('adminCatFormTitle').innerText = "Edit Category";
+        document.getElementById('adminCatSubmitBtn').innerText = "Update Category";
+        document.getElementById('editCatId').value = c.id;
+        document.getElementById('newCatName').value = c.name;
+        document.getElementById('newCatImage').value = c.imageUrl || '';
+        window.scrollTo(0, document.getElementById('adminCategoryForm').offsetTop);
+    };
 
     window.deleteCategory = async function(id) {
         if(confirm('Delete this category?')) { 
@@ -614,12 +623,30 @@
 
     document.getElementById('adminCategoryForm')?.addEventListener('submit', async function(e) {
         e.preventDefault();
+        showToast("Saving Category...");
+        const id = document.getElementById('editCatId').value;
         const name = document.getElementById('newCatName').value;
-        const imageUrl = document.getElementById('newCatImage').value;
+        const file = document.getElementById('catImageFile').files[0];
+        let imageUrl = document.getElementById('newCatImage').value;
+
+        if (file) {
+            const storageRef = ref(storage, `categories/${Date.now()}_${file.name}`);
+            await uploadBytes(storageRef, file);
+            imageUrl = await getDownloadURL(storageRef);
+        }
+
         try {
-            await addDoc(collection(db, "categories"), { name, imageUrl });
-            showToast("Category Added!");
+            if(id) {
+                await updateDoc(doc(db, "categories", id), { name, imageUrl });
+                showToast("Category Updated!");
+            } else {
+                await addDoc(collection(db, "categories"), { name, imageUrl });
+                showToast("Category Added!");
+            }
             this.reset();
+            document.getElementById('editCatId').value = '';
+            document.getElementById('adminCatFormTitle').innerText = "Add New Category";
+            document.getElementById('adminCatSubmitBtn').innerText = "Add Category";
             fetchCategories();
         } catch(err) { alert(err.message); }
     });
@@ -629,15 +656,30 @@
         if(select) select.innerHTML = categoriesList.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
     }
 
-    function renderAllCategoriesPage() {
-        const grid = document.getElementById('allCategoriesGridContainer');
-        if(grid) grid.innerHTML = categoriesList.map(c => `
+    function renderAllCategoriesPages() {
+        // Sync Home Page Categories (Max 4 to fit your original UI perfectly)
+        const homeGrid = document.getElementById('homeCategoriesGrid');
+        if(homeGrid) homeGrid.innerHTML = categoriesList.slice(0,4).map(c => `
+            <div class="category-card" onclick="openCategoryProducts('${c.name}')">
+                <img src="${c.imageUrl}" alt="${c.name}">
+                <div class="category-card-overlay"></div>
+                <div class="category-card-content"><h3>${c.name}</h3><span>Shop Now →</span></div>
+            </div>
+        `).join('');
+
+        // Sync "All Categories" Page Grid (Shows everything)
+        const allGrid = document.getElementById('allCategoriesGridContainer');
+        if(allGrid) allGrid.innerHTML = categoriesList.map(c => `
             <div class="category-card" onclick="openCategoryProducts('${c.name}')">
                 <img src="${c.imageUrl}" alt="${c.name}">
                 <div class="category-card-overlay"></div>
                 <div class="category-card-content"><h3>${c.name}</h3></div>
             </div>
         `).join('');
+
+        // Sync Footer Links
+        const footerLinks = document.getElementById('footerCategoryLinks');
+        if(footerLinks) footerLinks.innerHTML = categoriesList.slice(0,4).map(c => `<li><a onclick="openCategoryProducts('${c.name}')">${c.name}</a></li>`).join('');
     }
 
     // ================= FETCH & RENDER PRODUCTS =================
@@ -769,7 +811,7 @@
 
     onAuthStateChanged(auth, (user) => { if(user) checkUserRole(user); });
 
-    // ================= ADMIN PANEL LOGIC =================
+    // ================= ADMIN PANEL LOGIC (Products) =================
     window.switchAdminTab = function(tabId) {
         document.getElementById('manageTab').style.display = 'none';
         document.getElementById('addTab').style.display = 'none';
@@ -849,7 +891,7 @@
     });
 
     window.generateDummyData = async function() {
-        if(!confirm("Add 15 Premium Dummy Products?")) return;
+        if(!confirm("Add Premium Dummy Products?")) return;
         showToast("Generating Data... ⏳");
         const dummyData = [
             {name: "Premium Wash Slim Jeans", category: "Jeans", price: 2499, colors: ["blue", "black"], imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80"},
@@ -858,15 +900,9 @@
             {name: "Festive Embroidered Kurta", category: "Kurtas", price: 2199, colors: ["black", "maroon"], imageUrl: "https://images.unsplash.com/photo-1583391733958-d259746c4f74?auto=format&fit=crop&w=600&q=80"},
             {name: "Minimalist Oversized Tee", category: "Men", price: 999, colors: ["black", "beige"], imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80"},
             {name: "Classic Linen Shirt", category: "Men", price: 1899, colors: ["white", "navy"], imageUrl: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80"},
-            {name: "Urban Cargo Pants", category: "Men", price: 2299, colors: ["olive", "black"], imageUrl: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=600&q=80"},
             {name: "Elegant Slip Dress", category: "Women", price: 2799, colors: ["black", "red"], imageUrl: "https://images.unsplash.com/photo-1495385794356-15371f348c31?auto=format&fit=crop&w=600&q=80"},
             {name: "Ribbed Knit Top", category: "Women", price: 1299, colors: ["white", "brown"], imageUrl: "https://images.unsplash.com/photo-1503341504253-d2d4308a0d2f?auto=format&fit=crop&w=600&q=80"},
-            {name: "High-Waist Trousers", category: "Women", price: 1999, colors: ["beige", "black"], imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80"},
-            {name: "Essential Heavyweight Hoodie", category: "Hoodies", price: 2499, colors: ["gray", "black", "sand"], imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"},
-            {name: "Graphic Street Hoodie", category: "Hoodies", price: 2699, colors: ["black"], imageUrl: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80"},
-            {name: "Chunky Sneakers V2", category: "Shoes", price: 4999, colors: ["white"], imageUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80"},
-            {name: "Classic Leather Loafers", category: "Shoes", price: 3599, colors: ["brown", "black"], imageUrl: "https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=600&q=80"},
-            {name: "Vegan Leather Biker Jacket", category: "Jackets", price: 5999, colors: ["black"], imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80"}
+            {name: "Essential Heavyweight Hoodie", category: "Hoodies", price: 2499, colors: ["gray", "black", "sand"], imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"}
         ];
         try {
             await Promise.all(dummyData.map(prod => addDoc(collection(db, "products"), prod)));
@@ -946,7 +982,7 @@
         }).join('');
     }
 
-    // ================= HERO SLIDER LOGIC FIX =================
+    // ================= HERO SLIDER =================
     const slides = [
         { img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80', tag: 'New Arrivals', headline: 'Elevated Style.<br>Everyday Comfort.', para: 'Discover our latest collection of premium streetwear.' },
         { img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=900&q=80', tag: 'Summer Drop', headline: 'Lightweight<br>Essentials.', para: 'Breezy fabrics for the modern wardrobe.' },
@@ -989,7 +1025,7 @@
     };
     window.showToast = function(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
 
-    // Init
+    // Init Data
     fetchCategories(); fetchProducts(); loadCart(); loadWishlist(); updateSlide(0);
 </script>
 </body>
