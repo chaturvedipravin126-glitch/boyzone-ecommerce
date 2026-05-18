@@ -149,11 +149,16 @@
         .product-add-btn:hover { background:var(--pure-black); transform:scale(1.1); }
 
         .filter-bar { display:flex; justify-content:center; align-items:center; gap:1rem; margin:1.5rem 0 2rem; flex-wrap:wrap; }
-        .filter-bar select, .filter-bar button { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-full); font-family:'Inter',sans-serif; background:#fff; font-size:0.8rem; cursor:pointer; }
-        .filter-bar select:hover, .filter-bar button:hover { border-color:var(--black); }
-        .filter-apply-btn { background: var(--black); color: #fff; border: none; padding: 10px 22px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: var(--transition-fast); }
-        .filter-apply-btn:hover { background: var(--pure-black); transform: translateY(-1px); }
 
+.filter-bar select, .filter-bar button { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-full); font-family:'Inter',sans-serif; background:#fff; font-size:0.8rem; cursor:pointer; }
+
+.filter-bar select:hover, .filter-bar button:hover { border-color:var(--black); }
+
+/* 1. Bas yahan pehle .filter-bar jod diya */
+.filter-bar .filter-apply-btn { background: var(--black); color: #fff; border: none; padding: 10px 22px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: var(--transition-fast); }
+
+/* 2. Aur yahan bhi pehle .filter-bar jod diya */
+.filter-bar .filter-apply-btn:hover { background: var(--pure-black); transform: translateY(-1px); }
         .benefits-strip { background:#fff; display:grid; grid-template-columns: repeat(4,1fr); border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light); }
         .benefit-item { text-align:center; padding:2.5rem 1.5rem; }
         .benefit-item:hover { background:var(--off-white); }
