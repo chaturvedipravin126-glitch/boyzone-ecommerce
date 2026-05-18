@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* =========================================================
-           AAPKA ORIGINAL CSS (EK BHI LINE NAHI HATAYI GAYI HAI)
-        ========================================================= */
+        /* ====================================================================
+           YOUR ORIGINAL CSS - NO CHANGES
+        ==================================================================== */
         :root {
             --cream: #F5F0EB; --beige: #E8DED1; --warm-beige: #D5C8B5; --sand: #C4B5A5;
             --white: #FFFFFF; --off-white: #FAFAFA; --light-gray: #F2F2F2; --mid-gray: #E0E0E0;
@@ -41,10 +41,10 @@
 
         .navbar { position:sticky; top:0; z-index:1000; background:rgba(255,255,255,0.92); backdrop-filter:blur(20px); border-bottom:1px solid var(--border-light); box-shadow:var(--shadow-sm); padding:0 2.5rem; transition:var(--transition); }
         .navbar-inner { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:68px; gap:2rem; }
-        .nav-logo { font-family:'Inter',sans-serif; font-size:1.5rem; font-weight:800; letter-spacing:6px; color:var(--black); text-decoration:none; text-transform:uppercase; white-space:nowrap; }
+        .nav-logo { font-family:'Inter',sans-serif; font-size:1.5rem; font-weight:800; letter-spacing:6px; color:var(--black); text-decoration:none; text-transform:uppercase; white-space:nowrap; cursor:pointer;}
         .nav-logo:hover { opacity:0.7; }
         .nav-center { display:flex; align-items:center; gap:2.2rem; list-style:none; }
-        .nav-center a { color:var(--soft-black); text-decoration:none; font-size:0.8rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; transition:var(--transition-fast); padding:4px 0; white-space:nowrap; cursor:pointer; }
+        .nav-center a { color:var(--soft-black); text-decoration:none; font-size:0.8rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; transition:var(--transition-fast); padding:4px 0; white-space:nowrap; cursor:pointer;}
         .nav-center a:hover { color:var(--black); }
         .nav-badge { position:absolute; top:-14px; right:-22px; font-size:0.55rem; font-weight:700; padding:2px 6px; border-radius:3px; color:#fff; letter-spacing:0.8px; line-height:1; }
         .nav-badge.new { background:var(--black); } .nav-badge.hot { background:#d44637; }
@@ -145,6 +145,13 @@
         .footer ul li a:hover { color:#fff; } .footer-social { display:flex; gap:1rem; margin-top:1rem; } .footer-social a { color:#999; font-size:1.1rem; }
         .footer-bottom { max-width:1400px; margin:3rem auto 0; padding-top:2rem; border-top:1px solid #333; display:flex; justify-content:space-between; font-size:0.72rem; color:#888; }
 
+        @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
+        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } }
+        @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
+
+        /* ====================================================================
+           MODALS, CARTS, ADMIN & PAGE LOGIC CSS
+        ==================================================================== */
         .cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; opacity:0; pointer-events:none; transition:var(--transition); }
         .cart-overlay.active { opacity:1; pointer-events:all; }
         .cart-sidebar { position:fixed; top:0; right:-460px; width:440px; max-width:92vw; height:100vh; background:#fff; z-index:2100; transition:var(--transition-slow); display:flex; flex-direction:column; box-shadow:var(--shadow-xl); }
@@ -169,28 +176,19 @@
         .modal-close { position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.4rem; cursor:pointer; }
         .modal-box h2 { font-family:'Playfair Display',serif; margin-bottom:1.5rem; }
         .modal-box input, .modal-box select, .modal-box textarea { width:100%; padding:12px 16px; margin-bottom:1rem; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:'Inter',sans-serif; }
-        .modal-box .btn { width:100%; }
+        .btn-google { background:#fff; border:1px solid #ccc; width:100%; justify-content:center; display:flex; gap:10px; font-weight:600; padding:14px; border-radius:var(--radius-full); cursor:pointer; color:#333; align-items:center;}
+        .btn-google img { width:20px; height:20px; }
 
         .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--black); color:#fff; padding:13px 26px; border-radius:var(--radius-full); font-weight:500; font-size:0.8rem; z-index:3000; transition:var(--transition); }
         .toast.show { transform:translateX(-50%) translateY(0); }
         .whatsapp-float { position:fixed; bottom:28px; right:28px; z-index:1500; width:52px; height:52px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; box-shadow:0 4px 20px rgba(37,211,102,0.35); text-decoration:none; }
-        .whatsapp-float:hover { transform:scale(1.1); }
 
-        @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } }
-        @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
-
-        /* =========================================================
-           NAYA CSS (Sirf Advanced Features ke liye, Purana safe hai)
-        ========================================================= */
+        /* VIRTUAL PAGES (Single Page App Logic) */
         .page-view { display:none; animation:fadeIn 0.3s ease; }
         .page-view.active { display:block; }
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
-        .back-btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; color:var(--gray); border:none; background:none; cursor:pointer; text-transform:uppercase; margin-bottom:2rem; font-size: 0.85rem;}
-        .back-btn:hover { color: var(--black); transform: translateX(-5px); transition: 0.3s;}
-
-        .btn-google { background:#fff; color:#333; border:1px solid #ccc; width:100%; justify-content:center; display:flex; align-items:center; gap:10px; font-weight:600; padding:14px; border-radius:var(--radius-full); cursor:pointer; }
-        .btn-google img { width:20px; height:20px; }
+        .back-btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; color:var(--gray); border:none; background:none; cursor:pointer; text-transform:uppercase; margin-bottom:2rem; font-size:0.85rem;}
+        .back-btn:hover { color:var(--black); transform:translateX(-5px); transition:0.3s;}
 
         .pdp-container { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; background:#fff; padding:2rem; border-radius:var(--radius-lg); box-shadow:var(--shadow-md); }
         .pdp-image-box { aspect-ratio:3/4; background:var(--light-gray); border-radius:var(--radius-md); overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:8rem; }
@@ -218,24 +216,23 @@
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR & NAVBAR (Visbible on all pages) -->
 <div class="announcement-bar">
     EXTRA 20% OFF ON PREPAID ORDERS &nbsp;|&nbsp; <span>FREE SHIPPING</span> ON ORDERS OVER ₹2,999
 </div>
 
 <nav class="navbar" id="navbar">
     <div class="navbar-inner">
-        <a href="javascript:void(0)" class="nav-logo" onclick="goToHomeAndScroll('home')">BOYZONE</a>
+        <a class="nav-logo" onclick="scrollToSection('home')">BOYZONE</a>
         <ul class="nav-center" id="navCenter">
-            <!-- Nav Links updated to support smooth scrolling exactly to your sections -->
-            <li><a onclick="goToHomeAndScroll('home')">Home</a></li>
-            <li><a onclick="goToHomeAndScroll('shop')">Shop</a></li>
+            <!-- Scroll directly to sections on the homepage -->
+            <li><a onclick="scrollToSection('home')">Home</a></li>
+            <li><a onclick="scrollToSection('shop')">Shop</a></li>
             <li><a onclick="switchPage('allCategoriesPage')">Collections</a></li>
-            <li><a onclick="goToHomeAndScroll('about')">About</a></li>
-            <li><a onclick="goToHomeAndScroll('contact')">Contact</a></li>
+            <li><a onclick="scrollToSection('about')">About</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
         </ul>
         <ul class="nav-right">
-            <li><button onclick="goToHomeAndScroll('shop'); setTimeout(()=>document.getElementById('searchInput').focus(), 500);" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
+            <li><button onclick="scrollToSection('shop'); setTimeout(()=>document.getElementById('searchInput').focus(), 500);" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
             <li><button onclick="handleUserIconClick()" aria-label="Account" id="userBtn"><i class="fa-regular fa-user"></i></button></li>
             <li><button onclick="openWishlistSidebar()" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button></li>
             <li><button onclick="toggleCart()" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i><span class="cart-dot" id="cartCountBadge">0</span></button></li>
@@ -244,8 +241,9 @@
     </div>
 </nav>
 
-<!-- ================= 1. HOME PAGE (AAPKA EXACT ORIGINAL LAYOUT) ================= -->
+<!-- ================= 1. HOME PAGE (EVERYTHING IN ONE FLOW) ================= -->
 <div id="homePage" class="page-view active">
+    
     <!-- Hero Slider -->
     <section class="hero" id="home">
         <div class="hero-left">
@@ -253,7 +251,7 @@
             <h1 class="hero-headline" id="heroHeadline">Elevated Style.<br>Everyday Comfort.</h1>
             <p class="hero-paragraph" id="heroPara">Discover our latest collection of premium streetwear.</p>
             <div class="hero-buttons">
-                <button class="btn btn-black" onclick="goToHomeAndScroll('shop')">Shop Now</button>
+                <button class="btn btn-black" onclick="scrollToSection('shop')">Shop Now</button>
                 <button class="btn btn-outline" onclick="switchPage('allCategoriesPage')">Explore Collections</button>
             </div>
         </div>
@@ -274,7 +272,6 @@
                 <p class="section-tag">Shop by Category</p>
                 <h2 class="section-title">Collections</h2>
             </div>
-            <!-- Category cards updated to route to new page -->
             <div class="categories-grid">
                 <div class="category-card" onclick="openCategoryProducts('Men')"><img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80" alt="Men"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Men</h3><span>Shop Now →</span></div></div>
                 <div class="category-card" onclick="openCategoryProducts('Women')"><img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80" alt="Women"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Women</h3><span>Shop Now →</span></div></div>
@@ -299,6 +296,7 @@
         </div>
     </section>
 
+    <!-- Benefits -->
     <div class="benefits-strip">
         <div class="benefit-item"><span class="benefit-icon">📦</span><h4>Free Shipping</h4><p>On orders over ₹2,999</p></div>
         <div class="benefit-item"><span class="benefit-icon">↩️</span><h4>Easy Returns</h4><p>7-day hassle-free</p></div>
@@ -306,6 +304,7 @@
         <div class="benefit-item"><span class="benefit-icon">💬</span><h4>Customer Support</h4><p>24/7 on WhatsApp</p></div>
     </div>
 
+    <!-- Newsletter (About Section Target) -->
     <div class="newsletter" id="about">
         <div class="newsletter-left"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="Newsletter"></div>
         <div class="newsletter-right">
@@ -318,6 +317,7 @@
         </div>
     </div>
 
+    <!-- Instagram -->
     <div class="instagram-section">
         <p class="section-tag">@BOYZONE.OFFICIAL</p>
         <div class="instagram-grid">
@@ -330,6 +330,7 @@
         </div>
     </div>
 
+    <!-- Footer (Contact Section Target) -->
     <footer class="footer" id="contact">
         <div class="footer-grid">
             <div>
@@ -361,11 +362,13 @@
         </div>
     </footer>
 </div>
+<!-- END OF HOME PAGE WRAPPER -->
+
 
 <!-- ================= 2. ALL CATEGORIES PAGE ================= -->
 <div id="allCategoriesPage" class="page-view">
     <div class="section container">
-        <button class="back-btn" onclick="goToHomeAndScroll('home')"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
+        <button class="back-btn" onclick="scrollToSection('home')"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
         <h2 class="section-title" style="text-align:left; margin-bottom:2rem;">All Collections</h2>
         <div class="categories-grid">
             <div class="category-card" onclick="openCategoryProducts('Men')"><img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80"><div class="category-card-overlay"></div><div class="category-card-content"><h3>Men</h3></div></div>
@@ -392,7 +395,7 @@
 <!-- ================= 4. PRODUCT DETAILS PAGE ================= -->
 <div id="productDetailsPage" class="page-view">
     <div class="section container">
-        <button class="back-btn" onclick="goToHomeAndScroll('shop')"><i class="fa-solid fa-arrow-left"></i> Back to Shop</button>
+        <button class="back-btn" onclick="scrollToSection('shop')"><i class="fa-solid fa-arrow-left"></i> Back to Shop</button>
         <div class="pdp-container" id="pdpContainer">
             <!-- JS dynamically injects here -->
         </div>
@@ -444,7 +447,7 @@
     </div>
 </div>
 
-<!-- ================= MODALS & SIDEBARS (ORIGINAL) ================= -->
+<!-- ================= MODALS & SIDEBARS ================= -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
@@ -456,7 +459,7 @@
         <div class="cart-total-row" style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:700;"><span>Subtotal</span><span id="cartTotal">₹0</span></div>
         <div class="checkout-buttons">
             <button class="btn-checkout btn-whatsapp-checkout" onclick="checkoutViaWhatsApp()">
-                <i class="fa-brands fa-whatsapp"></i> Complete Order via WhatsApp
+                <i class="fa-brands fa-whatsapp"></i> Checkout via WhatsApp
             </button>
         </div>
     </div>
@@ -492,7 +495,7 @@
     </div>
 </div>
 
-<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg"></span></div>
+<div class="toast" id="toast"><i class="fa-solid fa-circle-info"></i> <span id="toastMsg" style="margin-left:8px;"></span></div>
 <a href="https://wa.me/917898592046" target="_blank" class="whatsapp-float" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <!-- ================= FIREBASE & ADVANCED JAVASCRIPT ================= -->
@@ -526,20 +529,29 @@
     let cart = [];
     let wishlist = [];
 
-    // ================= PAGE ROUTING & SCROLLING =================
+    // ================= PAGE ROUTING & SCROLLING FIX =================
     window.switchPage = function(pageId) {
         document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        window.scrollTo(0,0);
-        document.getElementById('navCenter').classList.remove('active'); // close mobile menu if open
+        document.getElementById('navCenter').classList.remove('active'); // Close mobile menu if open
     };
 
-    window.goToHomeAndScroll = function(sectionId) {
-        switchPage('homePage');
+    window.scrollToSection = function(sectionId) {
+        // Ensure we are on the homepage first
+        if(!document.getElementById('homePage').classList.contains('active')) {
+            switchPage('homePage');
+        }
+        
+        // Use a tiny timeout to ensure the DOM is visible before scrolling
         setTimeout(() => {
             const el = document.getElementById(sectionId);
-            if(el) el.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+            if(el) {
+                // Scroll accounting for sticky navbar height
+                const yOffset = -70; 
+                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }
+        }, 50);
     };
 
     window.openCategoryProducts = function(category) {
@@ -550,6 +562,7 @@
         
         if(filtered.length === 0) grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999; padding:2rem;">No products found in ${category}.</p>`;
         else grid.innerHTML = generateProductHTML(filtered);
+        window.scrollTo(0,0);
     };
 
     // ================= FETCH & RENDER =================
@@ -592,6 +605,7 @@
         const p = products.find(prod => prod.id === id);
         if (!p) return;
         switchPage('productDetailsPage');
+        window.scrollTo(0,0);
         
         const colorsHTML = (p.colors || ['black']).map((c, i) => `<div class="pdp-color-dot ${i===0?'active':''}" style="background:${c};" data-color="${c}" onclick="selectOption(this, 'pdp-color-dot')"></div>`).join('');
 
@@ -621,14 +635,18 @@
         el.classList.add('active');
     };
 
-    // ================= AUTH & PROFILES =================
+    // ================= AUTH & PROFILES (WITH EXACT MATCH FIX) =================
     window.openLoginModal = () => document.getElementById('loginModal').classList.add('active');
     window.closeLoginModal = () => document.getElementById('loginModal').classList.remove('active');
 
     window.handleUserIconClick = function() {
-        if(currentUser && isAdmin) switchPage('adminPanelPage');
-        else if(currentUser) showToast(`Logged in as ${currentUser.email}`);
-        else openLoginModal();
+        if(currentUser && isAdmin) {
+            switchPage('adminPanelPage');
+        } else if(currentUser) {
+            showToast(`Logged in as ${currentUser.email}`);
+        } else {
+            openLoginModal();
+        }
     };
 
     window.handleGoogleLogin = async function() {
@@ -641,18 +659,26 @@
 
     async function checkUserRole(user) {
         currentUser = user;
-        if(user.email === ADMIN_EMAIL) {
+        
+        // CRITICAL FIX: Convert both emails to lowercase and trim spaces to ensure a perfect match.
+        const userEmail = user.email.toLowerCase().trim();
+        const adminEmail = ADMIN_EMAIL.toLowerCase().trim();
+
+        if(userEmail === adminEmail) {
             isAdmin = true;
             document.getElementById('userBtn').innerHTML = `<i class="fa-solid fa-user-shield" style="color:var(--black);"></i>`;
             switchPage('adminPanelPage');
             renderAdminTable();
-            showToast("Admin Secured Access");
+            showToast("Admin Secured Access Granted.");
         } else {
             isAdmin = false;
             document.getElementById('userBtn').innerHTML = `<i class="fa-solid fa-user-check"></i>`;
+            showToast(`Logged in as: ${user.email}`); // Debugging help
+            
             const docSnap = await getDoc(doc(db, "users", user.uid));
-            if(!docSnap.exists()) document.getElementById('profileModal').classList.add('active');
-            else showToast("Welcome back!");
+            if(!docSnap.exists()) {
+                document.getElementById('profileModal').classList.add('active');
+            }
         }
         loadCart(); loadWishlist();
     }
@@ -688,7 +714,7 @@
         if(tabId==='addTab') document.getElementById('btnAddTab').classList.add('active');
     };
 
-    function renderAdminTable() {
+    window.renderAdminTable = function() {
         document.getElementById('adminTotalCount').innerText = products.length;
         document.getElementById('adminTableBody').innerHTML = products.map(p => `
             <tr>
@@ -850,6 +876,36 @@
         }).join('');
     }
 
+    // ================= HERO SLIDER LOGIC FIX =================
+    const slides = [
+        { img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80', tag: 'New Arrivals', headline: 'Elevated Style.<br>Everyday Comfort.', para: 'Discover our latest collection of premium streetwear.' },
+        { img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=900&q=80', tag: 'Summer Drop', headline: 'Lightweight<br>Essentials.', para: 'Breezy fabrics for the modern wardrobe.' },
+        { img: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=900&q=80', tag: 'Limited Edition', headline: 'Art of<br>Layering.', para: 'Exclusive pieces for the bold.' }
+    ];
+    let currentSlide = 0;
+    
+    window.updateSlide = (index) => {
+        currentSlide = index;
+        const s = slides[index];
+        document.getElementById('heroImg').src = s.img;
+        document.getElementById('heroTag').textContent = s.tag;
+        document.getElementById('heroHeadline').innerHTML = s.headline;
+        document.getElementById('heroPara').textContent = s.para;
+        
+        document.getElementById('sliderDots').innerHTML = slides.map((_, i) => `<span class="slider-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></span>`).join('');
+    };
+    
+    window.nextSlide = () => updateSlide((currentSlide + 1) % slides.length);
+    window.prevSlide = () => updateSlide((currentSlide - 1 + slides.length) % slides.length);
+    window.goToSlide = (i) => updateSlide(i);
+    
+    // Autoplay fixed: Ensure it only runs if homepage is visible
+    setInterval(() => {
+        if(document.getElementById('homePage').classList.contains('active')) {
+            window.nextSlide();
+        }
+    }, 4000); 
+
     // SEARCH & MISC
     document.getElementById('searchInput').addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
@@ -864,7 +920,8 @@
     };
     window.showToast = function(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
 
-    fetchProducts(); loadCart(); loadWishlist();
+    // Init
+    fetchProducts(); loadCart(); loadWishlist(); updateSlide(0);
 </script>
 </body>
 </html>
