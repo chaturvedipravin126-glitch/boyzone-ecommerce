@@ -459,7 +459,7 @@
         <div class="cart-total-row" style="display:flex; justify-content:space-between; margin-bottom:10px; font-weight:700;"><span>Subtotal</span><span id="cartTotal">₹0</span></div>
         <div class="checkout-buttons">
             <button class="btn-checkout btn-whatsapp-checkout" onclick="checkoutViaWhatsApp()">
-                <i class="fa-brands fa-whatsapp"></i> Checkout via WhatsApp
+                <i class="fa-brands fa-whatsapp"></i> Complete Order via WhatsApp
             </button>
         </div>
     </div>
@@ -521,7 +521,7 @@
     const provider = new GoogleAuthProvider();
 
     // 🚨 APNA ADMIN EMAIL YAHAN DAALEIN 🚨
-    const ADMIN_EMAIL = "pravinchaturvedi@gmail.com"; 
+    const ADMIN_EMAIL = "chaturvedipravin126@gmail.com"; 
 
     let currentUser = null;
     let isAdmin = false;
@@ -662,7 +662,7 @@
         
         // CRITICAL FIX: Convert both emails to lowercase and trim spaces to ensure a perfect match.
         const userEmail = user.email.toLowerCase().trim();
-        const adminEmail =chaturvedipravin126@gmail.com.toLowerCase().trim();
+        const adminEmail = ADMIN_EMAIL.toLowerCase().trim();
 
         if(userEmail === adminEmail) {
             isAdmin = true;
@@ -673,11 +673,12 @@
         } else {
             isAdmin = false;
             document.getElementById('userBtn').innerHTML = `<i class="fa-solid fa-user-check"></i>`;
-            showToast(`Logged in as: ${user.email}`); // Debugging help
             
             const docSnap = await getDoc(doc(db, "users", user.uid));
             if(!docSnap.exists()) {
                 document.getElementById('profileModal').classList.add('active');
+            } else {
+                showToast("Welcome back!");
             }
         }
         loadCart(); loadWishlist();
