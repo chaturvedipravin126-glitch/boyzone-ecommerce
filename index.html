@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOYZONE — Luxury Modern Fashion</title>
-    <meta name="description" content="Premium minimalist fashion. Elevated style, everyday comfort.">
-    <meta property="og:title" content="BOYZONE — Luxury Modern Fashion">
-    <meta property="og:description" content="Premium minimalist fashion. Elevated style, everyday comfort.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80">
+    <meta name="description" content="Premium minimalist fashion. Elevated style, everyday comfort. Discover men's & women's clothing, hoodies, kurtas & more at BOYZONE.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* =========================================================
-           ORIGINAL + UPGRADED CSS (Sab kuch ek saath - NO UI CHANGE)
-        ========================================================= */
         :root {
             --cream: #F5F0EB; --beige: #E8DED1; --warm-beige: #D5C8B5; --sand: #C4B5A5;
             --white: #FFFFFF; --off-white: #FAFAFA; --light-gray: #F2F2F2; --mid-gray: #E0E0E0;
@@ -46,8 +40,6 @@
         .nav-center { display:flex; align-items:center; gap:2.2rem; list-style:none; }
         .nav-center a { color:var(--soft-black); text-decoration:none; font-size:0.8rem; font-weight:500; letter-spacing:1px; text-transform:uppercase; transition:var(--transition-fast); padding:4px 0; white-space:nowrap; cursor:pointer; }
         .nav-center a:hover { color:var(--black); }
-        .nav-badge { position:absolute; top:-14px; right:-22px; font-size:0.55rem; font-weight:700; padding:2px 6px; border-radius:3px; color:#fff; letter-spacing:0.8px; line-height:1; }
-        .nav-badge.new { background:var(--black); } .nav-badge.hot { background:#d44637; }
         .nav-right { display:flex; align-items:center; gap:1.6rem; list-style:none; }
         .nav-right a, .nav-right button { color:var(--soft-black); text-decoration:none; font-size:1.1rem; transition:var(--transition-fast); cursor:pointer; background:none; border:none; position:relative; padding:4px; }
         .nav-right a:hover, .nav-right button:hover { color:var(--black); }
@@ -112,6 +104,10 @@
         .product-add-btn { position:absolute; bottom:1rem; right:1rem; width:34px; height:34px; border-radius:50%; background:var(--black); color:#fff; border:none; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; justify-content:center; z-index:2; }
         .product-add-btn:hover { background:var(--pure-black); transform:scale(1.1); }
 
+        .filter-bar { display:flex; justify-content:center; gap:1rem; margin:1.5rem 0 2rem; flex-wrap:wrap; }
+        .filter-bar select, .filter-bar button { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-full); font-family:'Inter',sans-serif; background:#fff; font-size:0.8rem; cursor:pointer; }
+        .filter-bar select:hover, .filter-bar button:hover { border-color:var(--black); }
+
         .benefits-strip { background:#fff; display:grid; grid-template-columns: repeat(4,1fr); border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light); }
         .benefit-item { text-align:center; padding:2.5rem 1.5rem; }
         .benefit-item:hover { background:var(--off-white); }
@@ -138,7 +134,7 @@
 
         .footer { background:var(--pure-black); color:#ccc; padding:4rem 2.5rem 2rem; }
         .footer-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr 1.5fr; gap:2rem; }
-        .footer-logo { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:800; letter-spacing:5px; color:#fff; display:block; margin-bottom:1rem; }
+        .footer-logo { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:800; letter-spacing:5px; color:#fff; display:block; margin-bottom:1rem; cursor:pointer; text-decoration:none; }
         .footer-desc { font-size:0.78rem; color:#999; line-height:1.7; margin-bottom:1.2rem; }
         .footer h4 { font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:#fff; margin-bottom:1.2rem; }
         .footer ul { list-style:none; } .footer ul li { margin-bottom:0.6rem; } .footer ul li a { color:#999; text-decoration:none; font-size:0.78rem; cursor:pointer;}
@@ -176,7 +172,6 @@
         .toast.show { transform:translateX(-50%) translateY(0); }
         .whatsapp-float { position:fixed; bottom:28px; right:28px; z-index:1500; width:52px; height:52px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; box-shadow:0 4px 20px rgba(37,211,102,0.35); text-decoration:none; }
 
-        /* VIRTUAL PAGES (Single Page App Logic) */
         .page-view { display:none; animation:fadeIn 0.3s ease; }
         .page-view.active { display:block; }
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
@@ -211,8 +206,13 @@
         .admin-table th, .admin-table td { padding:12px; border-bottom:1px solid var(--border-light); text-align:left; }
         .magic-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 
+        .about-story-container { display:flex; align-items:center; gap:4rem; flex-wrap:wrap; background: var(--white); padding: 5rem 2.5rem; border-radius: var(--radius-lg); margin-bottom: 2rem;}
+        .about-img-box { flex:1; min-width:300px; }
+        .about-img-box img { width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); object-fit:cover; aspect-ratio:4/3; }
+        .about-text-box { flex:1; min-width:300px; }
+        
         @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } .pdp-container, .admin-dashboard{grid-template-columns:1fr;} }
+        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } .pdp-container, .admin-dashboard{grid-template-columns:1fr;} .about-story-container { gap: 2rem; padding: 2rem 1.5rem;} }
         @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
     </style>
 </head>
@@ -242,7 +242,6 @@
     </div>
 </nav>
 
-<!-- ================= 1. HOME PAGE ================= -->
 <div id="homePage" class="page-view active">
     <section class="hero" id="home">
         <div class="hero-left">
@@ -255,7 +254,7 @@
             </div>
         </div>
         <div class="hero-right" id="heroRight">
-            <img id="heroImg" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80" alt="Fashion model" class="hero-image">
+            <img id="heroImg" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80" alt="Fashion model" class="hero-image" loading="lazy">
         </div>
         <div class="slider-controls">
             <button class="slider-arrow" onclick="prevSlide()"><i class="fa-solid fa-chevron-left"></i></button>
@@ -264,7 +263,6 @@
         </div>
     </section>
 
-    <!-- Categories -->
     <section class="section" id="categories">
         <div class="container">
             <div class="section-header">
@@ -272,7 +270,6 @@
                 <h2 class="section-title">Collections</h2>
             </div>
             
-            <!-- HOME PAGE CATEGORIES ARE NOW DYNAMIC (Generated by JS) -->
             <div class="categories-grid" id="homeCategoriesGrid"></div>
             
             <div style="text-align:center; margin-top:2rem;">
@@ -288,6 +285,17 @@
                 <h2 class="section-title" id="shopTitle">Our Collection</h2>
                 <input type="text" id="searchInput" placeholder="Search products..." style="margin-top:1rem; padding:10px 20px; border:1px solid #ddd; border-radius:50px; width:250px; font-family:Inter;">
             </div>
+            <!-- NEW FILTER BAR -->
+            <div class="filter-bar">
+                <select id="filterCategory" onchange="applyFilters()">
+                    <option value="">All Categories</option>
+                </select>
+                <select id="filterSort" onchange="applyFilters()">
+                    <option value="default">Sort by: Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
             <div class="products-grid" id="productsGrid"></div>
         </div>
     </section>
@@ -299,8 +307,22 @@
         <div class="benefit-item"><span class="benefit-icon">💬</span><h4>Customer Support</h4><p>24/7 on WhatsApp</p></div>
     </div>
 
-    <div class="newsletter" id="about">
-        <div class="newsletter-left"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="Newsletter"></div>
+    <section class="section container" id="about">
+        <div class="about-story-container">
+            <div class="about-img-box">
+                <img src="https://images.unsplash.com/photo-1550614000-4b95d41b63bd?auto=format&fit=crop&w=800&q=80" alt="Our Story" loading="lazy">
+            </div>
+            <div class="about-text-box">
+                <p class="section-tag">Our Story</p>
+                <h2 class="section-title" style="text-align:left; margin-bottom:1.5rem;">Redefining Modern Luxury.</h2>
+                <p style="color:var(--dark-gray); line-height:1.8; margin-bottom:1rem;">Founded with a rebellious spirit and a soaring objective, BOYZONE began as a small project to bring premium, minimalist fashion to the everyday wardrobe. We believe that true luxury lies in the details—the perfect stitch, the finest fabric, and an uncompromising fit.</p>
+                <p style="color:var(--dark-gray); line-height:1.8;">Our history is built on breaking the mold. From our humble beginnings to a globally recognized streetwear brand, our projection for the future remains the same: Empowering individuals to express their unique identity with confidence and elevated style.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="newsletter">
+        <div class="newsletter-left"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80" alt="Newsletter" loading="lazy"></div>
         <div class="newsletter-right">
             <h2>Get 10% Off<br>Your First Order</h2>
             <p>Subscribe to receive exclusive offers and early access to new drops.</p>
@@ -314,19 +336,19 @@
     <div class="instagram-section">
         <p class="section-tag">@BOYZONE.OFFICIAL</p>
         <div class="instagram-grid">
-            <a href="#"><img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80"></a>
-            <a href="#"><img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=400&q=80"></a>
-            <a href="#"><img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=400&q=80"></a>
-            <a href="#"><img src="https://images.unsplash.com/photo-1434389677669-e08b4cda4b71?auto=format&fit=crop&w=400&q=80"></a>
-            <a href="#"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80"></a>
-            <a href="#"><img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=400&q=80"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
+            <a href="#"><img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=400&q=80" alt="Instagram post" loading="lazy"></a>
         </div>
     </div>
 
     <footer class="footer" id="contact">
         <div class="footer-grid">
             <div>
-                <a href="#" class="footer-logo">BOYZONE</a>
+                <a class="footer-logo" onclick="scrollToSection('home')">BOYZONE</a>
                 <p class="footer-desc">Premium minimalist fashion for the modern era.</p>
                 <div class="footer-social">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -335,9 +357,7 @@
             </div>
             <div>
                 <h4>Shop</h4>
-                <ul id="footerCategoryLinks">
-                    <!-- Dynamic links injected here -->
-                </ul>
+                <ul id="footerCategoryLinks"></ul>
             </div>
             <div>
                 <h4>Help</h4>
@@ -356,19 +376,15 @@
         </div>
     </footer>
 </div>
-<!-- END OF HOME PAGE WRAPPER -->
 
-<!-- ================= 2. ALL CATEGORIES PAGE (DYNAMIC) ================= -->
 <div id="allCategoriesPage" class="page-view">
     <div class="section container">
         <button class="back-btn" onclick="scrollToSection('home')"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
         <h2 class="section-title" style="text-align:left; margin-bottom:2rem;">All Collections</h2>
-        <!-- Categories injected here by Firebase -->
         <div class="categories-grid" id="allCategoriesGridContainer"></div>
     </div>
 </div>
 
-<!-- ================= 3. SPECIFIC CATEGORY PRODUCTS PAGE ================= -->
 <div id="categoryProductsPage" class="page-view">
     <div class="section container">
         <button class="back-btn" onclick="switchPage('allCategoriesPage')"><i class="fa-solid fa-arrow-left"></i> Back to Categories</button>
@@ -377,7 +393,6 @@
     </div>
 </div>
 
-<!-- ================= 4. PRODUCT DETAILS PAGE ================= -->
 <div id="productDetailsPage" class="page-view">
     <div class="section container">
         <button class="back-btn" onclick="scrollToSection('shop')"><i class="fa-solid fa-arrow-left"></i> Back to Shop</button>
@@ -385,7 +400,6 @@
     </div>
 </div>
 
-<!-- ================= 5. ADMIN PANEL PAGE (WITH CATEGORY MANAGER) ================= -->
 <div id="adminPanelPage" class="page-view">
     <div class="admin-dashboard">
         <div class="admin-sidebar">
@@ -394,12 +408,11 @@
                 <button onclick="switchAdminTab('manageTab')" class="active" id="btnManageTab">Manage Products</button>
                 <button onclick="switchAdminTab('addTab')" id="btnAddTab">Add / Edit Product</button>
                 <button onclick="switchAdminTab('categoryTab')" id="btnCategoryTab">Manage Categories</button>
-                <button onclick="generateDummyData()" class="magic-btn" style="margin-top:2rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Magic Demo Data</button>
+                <button onclick="generateDummyData()" class="magic-btn" style="margin-top:2rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Add 9 Demo Products</button>
                 <button onclick="logoutUser()" style="margin-top:1rem; color:red;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
         </div>
         
-        <!-- Tab 1: Manage Products -->
         <div class="admin-content" id="manageTab">
             <h2>Product List</h2>
             <p style="color:var(--gray); margin-bottom:1rem;">Total Products: <span id="adminTotalCount">0</span></p>
@@ -409,13 +422,11 @@
             </table>
         </div>
 
-        <!-- Tab 2: Add/Edit Product -->
         <div class="admin-content" style="display:none;" id="addTab">
             <h2 id="adminFormTitle">Add New Product</h2>
             <form id="adminForm" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem;">
                 <input type="hidden" id="editProdId">
                 <div><label style="font-size:0.85rem; font-weight:600;">Product Name</label><input type="text" id="prodName" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <!-- Category Select is dynamic -->
                 <div><label style="font-size:0.85rem; font-weight:600;">Category</label><select id="prodCategory" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></select></div>
                 <div><label style="font-size:0.85rem; font-weight:600;">Price (₹)</label><input type="number" id="prodPrice" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
                 <div><label style="font-size:0.85rem; font-weight:600;">Original Price (₹)</label><input type="number" id="prodOriginal" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></div>
@@ -432,7 +443,6 @@
             </form>
         </div>
 
-        <!-- Tab 3: Manage Categories -->
         <div class="admin-content" style="display:none;" id="categoryTab">
             <h2 id="adminCatFormTitle" style="margin-bottom:1rem;">Add New Category</h2>
             <form id="adminCategoryForm" style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border-light);">
@@ -456,7 +466,6 @@
     </div>
 </div>
 
-<!-- ================= MODALS & SIDEBARS ================= -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
@@ -501,10 +510,9 @@
 <div class="toast" id="toast"><i class="fa-solid fa-circle-info"></i> <span id="toastMsg" style="margin-left:8px;"></span></div>
 <a href="https://wa.me/917898592046" target="_blank" class="whatsapp-float" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<!-- ================= FIREBASE & ADVANCED JAVASCRIPT ================= -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, setDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc, getDoc, setDoc, query } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
     import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -523,7 +531,6 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // 🚨 APNA ADMIN EMAIL YAHAN DAALEIN 🚨
     const ADMIN_EMAIL = "chaturvedipravin126@gmail.com"; 
 
     let currentUser = null;
@@ -533,7 +540,7 @@
     let cart = [];
     let wishlist = [];
 
-    // ================= PAGE ROUTING & SCROLLING FIX =================
+    // ================= PAGE ROUTING =================
     window.switchPage = function(pageId) {
         document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -546,10 +553,10 @@
             const el = document.getElementById(sectionId);
             if(el) {
                 const yOffset = -70; 
-                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
                 window.scrollTo({top: y, behavior: 'smooth'});
             }
-        }, 50);
+        }, 100);
     };
 
     window.openCategoryProducts = function(category) {
@@ -557,42 +564,38 @@
         document.getElementById('catPageTitle').innerText = category + " Collection";
         const filtered = products.filter(p => p.category.toLowerCase() === category.toLowerCase());
         const grid = document.getElementById('catProductsGrid');
-        
         if(filtered.length === 0) grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999; padding:2rem;">No products found in ${category}.</p>`;
         else grid.innerHTML = generateProductHTML(filtered);
         window.scrollTo(0,0);
     };
 
-    // ================= DYNAMIC CATEGORY LOGIC =================
+    // ================= CATEGORIES =================
     async function fetchCategories() {
         const q = query(collection(db, "categories"));
         const snapshot = await getDocs(q);
         categoriesList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        
-        // Removed "Shoes" from default seed data per your request
         if(categoriesList.length === 0) {
             const defaults = [
                 {name: "Men", imageUrl: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80"},
                 {name: "Women", imageUrl: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=600&q=80"},
-                {name: "Jeans", imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80"},
-                {name: "Kurtas", imageUrl: "https://images.unsplash.com/photo-1596455607563-ad6193f78b5c?auto=format&fit=crop&w=600&q=80"},
-                {name: "Hoodies", imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"}
+                {name: "Hoodies", imageUrl: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80"},
+                {name: "Kurtas", imageUrl: "https://images.unsplash.com/photo-1596455607563-ad6193f78b5c?auto=format&fit=crop&w=600&q=80"}
             ];
             for(let d of defaults) await addDoc(collection(db, "categories"), d);
             const snap2 = await getDocs(q);
             categoriesList = snap2.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         }
-
         renderAdminCategories();
         renderAllCategoriesPages();
         updateProductCategoryDropdown();
+        populateFilterCategory();
     }
 
     function renderAdminCategories() {
         const tbody = document.getElementById('adminCategoryTableBody');
         if(tbody) tbody.innerHTML = categoriesList.map(c => `
             <tr>
-                <td><img src="${c.imageUrl}" width="50" height="50" style="object-fit:cover; border-radius:4px;"></td>
+                <td><img src="${c.imageUrl}" width="50" height="50" style="object-fit:cover; border-radius:4px;" alt="${c.name}"></td>
                 <td style="font-weight:600;">${c.name}</td>
                 <td>
                     <button onclick="editCategory('${c.id}')" style="margin-right:10px; background:none; border:none; cursor:pointer; color:blue;"><i class="fa-solid fa-pen"></i></button>
@@ -644,6 +647,7 @@
                 showToast("Category Added!");
             }
             this.reset();
+            document.getElementById('catImageFile').value = ''; // clear file input
             document.getElementById('editCatId').value = '';
             document.getElementById('adminCatFormTitle').innerText = "Add New Category";
             document.getElementById('adminCatSubmitBtn').innerText = "Add Category";
@@ -656,50 +660,70 @@
         if(select) select.innerHTML = categoriesList.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
     }
 
+    function populateFilterCategory() {
+        const filter = document.getElementById('filterCategory');
+        if(filter) filter.innerHTML = '<option value="">All Categories</option>' + categoriesList.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+    }
+
     function renderAllCategoriesPages() {
-        // Sync Home Page Categories (Max 4 to fit your original UI perfectly)
         const homeGrid = document.getElementById('homeCategoriesGrid');
         if(homeGrid) homeGrid.innerHTML = categoriesList.slice(0,4).map(c => `
             <div class="category-card" onclick="openCategoryProducts('${c.name}')">
-                <img src="${c.imageUrl}" alt="${c.name}">
+                <img src="${c.imageUrl}" alt="${c.name}" loading="lazy">
                 <div class="category-card-overlay"></div>
                 <div class="category-card-content"><h3>${c.name}</h3><span>Shop Now →</span></div>
             </div>
         `).join('');
 
-        // Sync "All Categories" Page Grid (Shows everything)
         const allGrid = document.getElementById('allCategoriesGridContainer');
         if(allGrid) allGrid.innerHTML = categoriesList.map(c => `
             <div class="category-card" onclick="openCategoryProducts('${c.name}')">
-                <img src="${c.imageUrl}" alt="${c.name}">
+                <img src="${c.imageUrl}" alt="${c.name}" loading="lazy">
                 <div class="category-card-overlay"></div>
                 <div class="category-card-content"><h3>${c.name}</h3></div>
             </div>
         `).join('');
 
-        // Sync Footer Links
         const footerLinks = document.getElementById('footerCategoryLinks');
         if(footerLinks) footerLinks.innerHTML = categoriesList.slice(0,4).map(c => `<li><a onclick="openCategoryProducts('${c.name}')">${c.name}</a></li>`).join('');
     }
 
-    // ================= FETCH & RENDER PRODUCTS =================
+    // ================= PRODUCTS =================
     async function fetchProducts() {
         const q = query(collection(db, "products"));
         const snapshot = await getDocs(q);
         products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        document.getElementById('productsGrid').innerHTML = generateProductHTML(products);
+        applyFilters();
         if(isAdmin) renderAdminTable();
+    }
+
+    function applyFilters() {
+        const term = document.getElementById('searchInput')?.value.toLowerCase() || '';
+        const catFilter = document.getElementById('filterCategory')?.value || '';
+        const sortBy = document.getElementById('filterSort')?.value || 'default';
+        
+        let filtered = products.filter(p => {
+            const matchSearch = p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term);
+            const matchCat = catFilter === '' || p.category.toLowerCase() === catFilter.toLowerCase();
+            return matchSearch && matchCat;
+        });
+
+        if(sortBy === 'price-low') filtered.sort((a,b) => a.price - b.price);
+        else if(sortBy === 'price-high') filtered.sort((a,b) => b.price - a.price);
+
+        document.getElementById('productsGrid').innerHTML = generateProductHTML(filtered);
     }
 
     function generateProductHTML(prodArray) {
         return prodArray.map(p => {
             const liked = wishlist.includes(p.id);
+            const colors = (p.colors || ['black']);
             return `
             <div class="product-card" onclick="openProductPage('${p.id}')">
                 <div class="product-image-wrap">
-                    ${p.imageUrl ? `<img src="${p.imageUrl}">` : `<span style="font-size:4.5rem;opacity:0.7;">${p.emoji || '👕'}</span>`}
+                    ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}" loading="lazy" onerror="this.onerror=null; this.parentNode.innerHTML='<span style=font-size:4.5rem;opacity:0.7;>👕</span>'">` : `<span style="font-size:4.5rem;opacity:0.7;">👕</span>`}
                     <button class="product-wishlist ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleWishlist('${p.id}')"><i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i></button>
-                    <button class="product-add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">+</button>
+                    <button class="product-add-btn" onclick="event.stopPropagation(); addToCartFromCard(this)" data-product-id="${p.id}">+</button>
                 </div>
                 <div class="product-info">
                     <p class="product-category-label">${p.category}</p>
@@ -709,15 +733,51 @@
                         ${p.originalPrice ? `<span class="product-price-original">₹${p.originalPrice.toLocaleString('en-IN')}</span>` : ''}
                     </div>
                     <div class="product-options-row">
-                        <div class="product-sizes"><span class="size-btn active">S</span><span class="size-btn">M</span><span class="size-btn">L</span></div>
-                        <div class="product-colors">${(p.colors || ['black']).map((c,ci) => `<span class="color-dot" style="background:${c};"></span>`).join('')}</div>
+                        <div class="product-sizes">
+                            <span class="size-btn active" onclick="event.stopPropagation(); selectSize(this)">S</span>
+                            <span class="size-btn" onclick="event.stopPropagation(); selectSize(this)">M</span>
+                            <span class="size-btn" onclick="event.stopPropagation(); selectSize(this)">L</span>
+                        </div>
+                        <div class="product-colors">
+                            ${colors.map((c,ci) => `<span class="color-dot ${ci===0?'active':''}" style="background:${c};" onclick="event.stopPropagation(); selectColor(this)"></span>`).join('')}
+                        </div>
                     </div>
                 </div>
             </div>`;
         }).join('');
     }
 
-    // ================= VIRTUAL PRODUCT PAGE (PDP) =================
+    // Size / Color selection for product cards
+    window.selectSize = function(el) {
+        el.parentElement.querySelectorAll('.size-btn').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+    };
+    window.selectColor = function(el) {
+        el.parentElement.querySelectorAll('.color-dot').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+    };
+    window.addToCartFromCard = function(btn) {
+        const card = btn.closest('.product-card');
+        const id = btn.getAttribute('data-product-id');
+        const size = card.querySelector('.size-btn.active')?.innerText || 'M';
+        const colorEl = card.querySelector('.color-dot.active');
+        const color = colorEl ? colorEl.style.background : 'black';
+        addToCartWithOptions(id, size, color);
+        showToast("Added to Bag!");
+        toggleCart(true);
+    };
+
+    window.addToCartWithOptions = function(id, size, color) {
+        const p = products.find(x => x.id === id);
+        if(!p) return;
+        const cartId = `${id}-${size}-${color}`;
+        const existing = cart.find(i => i.cartId === cartId);
+        if(existing) existing.qty += 1;
+        else cart.push({ cartId, id: p.id, name: p.name, price: p.price, size, color, imageUrl: p.imageUrl, qty: 1 });
+        saveCart();
+    };
+
+    // ================= PDP =================
     window.openProductPage = function(id) {
         const p = products.find(prod => prod.id === id);
         if (!p) return;
@@ -727,7 +787,7 @@
         const colorsHTML = (p.colors || ['black']).map((c, i) => `<div class="pdp-color-dot ${i===0?'active':''}" style="background:${c};" data-color="${c}" onclick="selectOption(this, 'pdp-color-dot')"></div>`).join('');
 
         document.getElementById('pdpContainer').innerHTML = `
-            <div class="pdp-image-box">${p.imageUrl ? `<img src="${p.imageUrl}">` : `<span style="font-size: 8rem;">${p.emoji || '👕'}</span>`}</div>
+            <div class="pdp-image-box">${p.imageUrl ? `<img src="${p.imageUrl}" alt="${p.name}" onerror="this.onerror=null; this.parentNode.innerHTML='<span style=font-size:8rem;>👕</span>'">` : `<span style="font-size: 8rem;">👕</span>`}</div>
             <div class="pdp-info">
                 <div class="pdp-category">${p.category}</div>
                 <h1 class="pdp-title">${p.name}</h1>
@@ -752,7 +812,19 @@
         el.classList.add('active');
     };
 
-    // ================= AUTH & PROFILES =================
+    window.addToCartFromPDP = function(id) {
+        const p = products.find(x => x.id === id);
+        const size = document.querySelector('.pdp-size-btn.active')?.innerText || 'M';
+        const colorEl = document.querySelector('.pdp-color-dot.active');
+        const color = colorEl ? colorEl.dataset.color : 'black';
+        addToCartWithOptions(id, size, color);
+        showToast("Added to Bag!");
+        toggleCart(true);
+    };
+
+    window.buyNowPDP = function(id) { addToCartFromPDP(id); setTimeout(() => checkoutViaWhatsApp(), 600); };
+
+    // ================= AUTH =================
     window.openLoginModal = () => document.getElementById('loginModal').classList.add('active');
     window.closeLoginModal = () => document.getElementById('loginModal').classList.remove('active');
 
@@ -811,7 +883,7 @@
 
     onAuthStateChanged(auth, (user) => { if(user) checkUserRole(user); });
 
-    // ================= ADMIN PANEL LOGIC (Products) =================
+    // ================= ADMIN =================
     window.switchAdminTab = function(tabId) {
         document.getElementById('manageTab').style.display = 'none';
         document.getElementById('addTab').style.display = 'none';
@@ -830,7 +902,7 @@
         document.getElementById('adminTotalCount').innerText = products.length;
         document.getElementById('adminTableBody').innerHTML = products.map(p => `
             <tr>
-                <td><img src="${p.imageUrl || ''}" width="40" height="50" style="object-fit:cover; border-radius:4px;"></td>
+                <td><img src="${p.imageUrl || ''}" width="40" height="50" style="object-fit:cover; border-radius:4px;" alt="${p.name}"></td>
                 <td style="font-weight:600;">${p.name}</td>
                 <td>${p.category}</td>
                 <td>₹${p.price}</td>
@@ -883,7 +955,9 @@
         try {
             if(id) { await updateDoc(doc(db, "products", id), data); showToast("Updated Successfully!"); } 
             else { await addDoc(collection(db, "products"), data); showToast("New Product Added!"); }
-            this.reset(); document.getElementById('editProdId').value = ''; 
+            this.reset(); 
+            document.getElementById('prodImageFile').value = ''; // clear file input
+            document.getElementById('editProdId').value = ''; 
             document.getElementById('adminFormTitle').innerText = "Add New Product"; 
             document.getElementById('adminSubmitBtn').innerText = "Publish Product";
             switchAdminTab('manageTab'); fetchProducts();
@@ -891,7 +965,7 @@
     });
 
     window.generateDummyData = async function() {
-        if(!confirm("Add Premium Dummy Products?")) return;
+        if(!confirm("Add 9 Premium Dummy Products?")) return;
         showToast("Generating Data... ⏳");
         const dummyData = [
             {name: "Premium Wash Slim Jeans", category: "Jeans", price: 2499, colors: ["blue", "black"], imageUrl: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80"},
@@ -910,31 +984,11 @@
         } catch(e) { alert("Error: " + e.message); }
     };
 
-    // ================= CART & WISHLIST LOGIC =================
+    // ================= CART =================
     function getCartKey() { return currentUser ? `boyzone_cart_${currentUser.email}` : 'boyzone_guestCart'; }
     function loadCart() { cart = JSON.parse(localStorage.getItem(getCartKey())) || []; updateCartUI(); }
     function saveCart() { localStorage.setItem(getCartKey(), JSON.stringify(cart)); updateCartUI(); }
     
-    window.addToCart = function(id) {
-        const p = products.find(x => x.id === id);
-        if(!p) return;
-        const cartId = `${id}-M-black`;
-        const existing = cart.find(i => i.cartId === cartId);
-        if(existing) existing.qty += 1; else cart.push({ cartId, id: p.id, name: p.name, price: p.price, size:'M', color:'black', imageUrl: p.imageUrl, qty: 1 });
-        saveCart(); showToast("Added to Bag!"); toggleCart(true);
-    };
-
-    window.addToCartFromPDP = function(id) {
-        const p = products.find(x => x.id === id);
-        const size = document.querySelector('.pdp-size-btn.active').innerText;
-        const color = document.querySelector('.pdp-color-dot.active').dataset.color;
-        const cartId = `${id}-${size}-${color}`;
-        const existing = cart.find(i => i.cartId === cartId);
-        if(existing) existing.qty += 1; else cart.push({ cartId, id: p.id, name: p.name, price: p.price, size, color, imageUrl: p.imageUrl, qty: 1 });
-        saveCart(); showToast("Added to Bag!"); toggleCart(true);
-    };
-
-    window.buyNowPDP = function(id) { addToCartFromPDP(id); setTimeout(() => checkoutViaWhatsApp(), 500); };
     window.updateQty = function(cartId, delta) { const item = cart.find(i => i.cartId === cartId); if(!item) return; item.qty += delta; if(item.qty <= 0) cart = cart.filter(i => i.cartId !== cartId); saveCart(); };
     window.removeFromCart = function(cartId) { cart = cart.filter(i => i.cartId !== cartId); saveCart(); }
 
@@ -947,7 +1001,7 @@
         } else {
             itemsDiv.innerHTML = cart.map(i => `
                 <div class="cart-item">
-                    <img src="${i.imageUrl || ''}" width="60" style="border-radius:4px; object-fit:cover;">
+                    <img src="${i.imageUrl || ''}" width="60" style="border-radius:4px; object-fit:cover;" alt="${i.name}" onerror="this.style.display='none'">
                     <div style="flex:1;"><h4 style="font-size:0.85rem;">${i.name}</h4><p style="font-size:0.7rem; color:var(--gray);">Size: ${i.size} | Color: ${i.color}</p><div style="font-weight:700; margin-top:5px;">₹${(i.price*i.qty).toLocaleString('en-IN')}</div></div>
                     <div style="display:flex; flex-direction:column; align-items:center; gap:5px;"><button onclick="removeFromCart('${i.cartId}')" style="background:none; border:none; color:red; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                     <div style="display:flex; align-items:center; gap:5px; background:var(--off-white); padding:2px 5px; border-radius:4px;"><button onclick="updateQty('${i.cartId}',-1)" style="border:none;background:none;cursor:pointer;">-</button><span style="font-size:0.8rem;">${i.qty}</span><button onclick="updateQty('${i.cartId}',1)" style="border:none;background:none;cursor:pointer;">+</button></div></div>
@@ -957,7 +1011,14 @@
         }
     }
 
-    window.toggleCart = function(force=false) { document.getElementById('cartSidebar').classList.toggle('active', force); document.getElementById('cartOverlay').classList.toggle('active', force); };
+    window.toggleCart = function(force) { 
+        const sidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('cartOverlay');
+        if(force === true) { sidebar.classList.add('active'); overlay.classList.add('active'); }
+        else if(force === false) { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
+        else { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); }
+    };
+
     window.checkoutViaWhatsApp = function() {
         if(cart.length === 0) return;
         let msg = '🛍️ *BOYZONE Order*%0A';
@@ -967,10 +1028,21 @@
         cart = []; saveCart(); toggleCart(false); showToast("Order sent via WhatsApp!");
     };
 
+    // ================= WISHLIST =================
     function getWishlistKey() { return currentUser ? `boyzone_wishlist_${currentUser.email}` : 'boyzone_guestWishlist'; }
     function loadWishlist() { wishlist = JSON.parse(localStorage.getItem(getWishlistKey())) || []; updateWishlistUI(); }
     function saveWishlist() { localStorage.setItem(getWishlistKey(), JSON.stringify(wishlist)); updateWishlistUI(); }
-    window.toggleWishlist = function(id) { const idx = wishlist.indexOf(id); if(idx===-1) wishlist.push(id); else wishlist.splice(idx,1); saveWishlist(); fetchProducts(); };
+    window.toggleWishlist = function(id) { 
+        const idx = wishlist.indexOf(id); 
+        if(idx===-1) wishlist.push(id); else wishlist.splice(idx,1); 
+        saveWishlist(); 
+        // Update only the heart icon without full re-render
+        document.querySelectorAll(`.product-wishlist[onclick*="${id}"]`).forEach(btn => {
+            const liked = wishlist.includes(id);
+            btn.classList.toggle('liked', liked);
+            btn.innerHTML = `<i class="fa-${liked ? 'solid' : 'regular'} fa-heart"></i>`;
+        });
+    };
     window.openWishlistSidebar = function() { document.getElementById('wishlistSidebar').style.right='0'; document.getElementById('wishlistOverlay').classList.add('active'); };
     window.closeWishlist = function() { document.getElementById('wishlistSidebar').style.right='-460px'; document.getElementById('wishlistOverlay').classList.remove('active'); };
     function updateWishlistUI() {
@@ -978,17 +1050,18 @@
         if(wishlist.length === 0) container.innerHTML = '<p style="text-align:center;color:#ccc;padding:2rem;">No items in wishlist</p>';
         else container.innerHTML = wishlist.map(id => {
             const p = products.find(pr => pr.id === id); if(!p) return '';
-            return `<div class="cart-item"><img src="${p.imageUrl}" width="60" style="border-radius:4px;"><div style="flex:1"><h4>${p.name}</h4><span>₹${p.price}</span></div><button onclick="toggleWishlist('${p.id}')" style="background:none;border:none;color:#d44637; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button></div>`;
+            return `<div class="cart-item"><img src="${p.imageUrl}" width="60" style="border-radius:4px;" alt="${p.name}" onerror="this.style.display='none'"><div style="flex:1"><h4>${p.name}</h4><span>₹${p.price}</span></div><button onclick="toggleWishlist('${p.id}')" style="background:none;border:none;color:#d44637; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button></div>`;
         }).join('');
     }
 
-    // ================= HERO SLIDER =================
+    // ================= HERO SLIDER (fixed interval) =================
+    let currentSlide = 0;
+    let slideInterval;
     const slides = [
         { img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80', tag: 'New Arrivals', headline: 'Elevated Style.<br>Everyday Comfort.', para: 'Discover our latest collection of premium streetwear.' },
         { img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=900&q=80', tag: 'Summer Drop', headline: 'Lightweight<br>Essentials.', para: 'Breezy fabrics for the modern wardrobe.' },
         { img: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=900&q=80', tag: 'Limited Edition', headline: 'Art of<br>Layering.', para: 'Exclusive pieces for the bold.' }
     ];
-    let currentSlide = 0;
     
     window.updateSlide = (index) => {
         currentSlide = index;
@@ -997,26 +1070,31 @@
         document.getElementById('heroTag').textContent = s.tag;
         document.getElementById('heroHeadline').innerHTML = s.headline;
         document.getElementById('heroPara').textContent = s.para;
-        
         document.getElementById('sliderDots').innerHTML = slides.map((_, i) => `<span class="slider-dot ${i === currentSlide ? 'active' : ''}" onclick="goToSlide(${i})"></span>`).join('');
     };
     
     window.nextSlide = () => updateSlide((currentSlide + 1) % slides.length);
     window.prevSlide = () => updateSlide((currentSlide - 1 + slides.length) % slides.length);
-    window.goToSlide = (i) => updateSlide(i);
-    
-    setInterval(() => {
-        if(document.getElementById('homePage').classList.contains('active')) {
-            window.nextSlide();
-        }
-    }, 4000); 
+    window.goToSlide = (i) => {
+        updateSlide(i);
+        resetAutoSlide();
+    };
 
-    // SEARCH & MISC
-    document.getElementById('searchInput').addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term));
-        document.getElementById('productsGrid').innerHTML = generateProductHTML(filtered);
-    });
+    function startAutoSlide() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(() => {
+            if(document.getElementById('homePage').classList.contains('active')) {
+                window.nextSlide();
+            }
+        }, 4000);
+    }
+
+    function resetAutoSlide() {
+        startAutoSlide();
+    }
+
+    // SEARCH & FILTERS
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
     window.toggleMobileMenu = () => document.getElementById('navCenter').classList.toggle('active');
     window.openWhatsApp = (msg) => window.open(`https://wa.me/917898592046?text=${encodeURIComponent(msg)}`, '_blank');
     window.subscribeNewsletter = () => {
@@ -1026,7 +1104,7 @@
     window.showToast = function(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
 
     // Init Data
-    fetchCategories(); fetchProducts(); loadCart(); loadWishlist(); updateSlide(0);
+    fetchCategories(); fetchProducts(); loadCart(); loadWishlist(); updateSlide(0); startAutoSlide();
 </script>
 </body>
 </html>
