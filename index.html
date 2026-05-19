@@ -44,7 +44,6 @@
         body.dark-theme .product-wishlist.liked { color: #ff6b6b; }
         body.dark-theme .size-btn { color: #ccc; border-color: #555; }
         body.dark-theme .size-btn.active { background: var(--white); color: var(--black); border-color: var(--white); }
-        body.dark-theme .color-dot.active { border-color: var(--white); }
         body.dark-theme .btn-outline { color: var(--white); border-color: var(--white); }
         body.dark-theme .btn-outline:hover { background: var(--white); color: var(--black); }
         body.dark-theme .btn-black { background: var(--white); color: var(--black); }
@@ -93,7 +92,7 @@
         .hero { min-height:88vh; display:flex; overflow:hidden; position:relative; background:var(--cream); }
         .hero-left { flex:1; display:flex; flex-direction:column; justify-content:center; padding:4rem 5rem; position:relative; z-index:2; }
         .hero-tag { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--dark-gray); font-weight:600; margin-bottom:1.5rem; }
-        .hero-headline { font-family:'Playfair Display',serif; font-size:clamp(2.6rem,4.5vw,4.2rem); font-weight:700; line-height:1.08; letter-spacing:-0.02em; color:var(--pure-black); margin-bottom:1.4rem; }
+        .hero-headline { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,4.5vw,4.2rem); font-weight:700; line-height:1.08; letter-spacing:-0.02em; color:var(--pure-black); margin-bottom:1.4rem; }
         .hero-paragraph { font-size:0.95rem; color:var(--dark-gray); line-height:1.7; margin-bottom:2.5rem; max-width:380px; }
         .hero-buttons { display:flex; gap:1rem; flex-wrap:wrap; }
         .btn { padding:14px 30px; border-radius:var(--radius-full); font-size:0.78rem; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; cursor:pointer; transition:var(--transition); text-decoration:none; display:inline-flex; align-items:center; gap:8px; border:none; font-family:'Inter',sans-serif; white-space:nowrap; }
@@ -143,22 +142,20 @@
         .size-btn { background:transparent; border:1px solid var(--border); border-radius:var(--radius-xs); padding:3px 6px; font-size:0.65rem; font-weight:600; cursor:pointer; transition:var(--transition-fast); color:var(--gray); min-width:24px; text-align:center; }
         .size-btn.active { background:var(--black); color:#fff; border-color:var(--black); }
         .product-colors { display:flex; gap:6px; }
-        .color-dot { width:14px; height:14px; border-radius:50%; cursor:pointer; border:1.5px solid transparent; transition:var(--transition-fast); }
-        .color-dot.active { border-color:var(--black); box-shadow:0 0 0 2px rgba(0,0,0,0.1); }
+        
+        /* FIX: Made color dots visible on matching backgrounds by adding a distinct border */
+        .color-dot { width:16px; height:16px; border-radius:50%; cursor:pointer; border:1px solid rgba(128,128,128,0.4); transition:var(--transition-fast); }
+        .color-dot.active { box-shadow:0 0 0 2px var(--off-white), 0 0 0 4px var(--black); border-color:transparent; }
+        
         .product-add-btn { position:absolute; bottom:1rem; right:1rem; width:34px; height:34px; border-radius:50%; background:var(--black); color:#fff; border:none; cursor:pointer; font-size:0.8rem; display:flex; align-items:center; justify-content:center; z-index:2; }
         .product-add-btn:hover { background:var(--pure-black); transform:scale(1.1); }
 
         .filter-bar { display:flex; justify-content:center; align-items:center; gap:1rem; margin:1.5rem 0 2rem; flex-wrap:wrap; }
-
-.filter-bar select, .filter-bar button { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-full); font-family:'Inter',sans-serif; background:#fff; font-size:0.8rem; cursor:pointer; }
-
-.filter-bar select:hover, .filter-bar button:hover { border-color:var(--black); }
-
-/* 1. Bas yahan pehle .filter-bar jod diya */
-.filter-bar .filter-apply-btn { background: var(--black); color: #fff; border: none; padding: 10px 22px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: var(--transition-fast); }
-
-/* 2. Aur yahan bhi pehle .filter-bar jod diya */
-.filter-bar .filter-apply-btn:hover { background: var(--pure-black); transform: translateY(-1px); }
+        .filter-bar select, .filter-bar button { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-full); font-family:'Inter',sans-serif; background:#fff; font-size:0.8rem; cursor:pointer; }
+        .filter-bar select:hover, .filter-bar button:hover { border-color:var(--black); }
+        .filter-bar .filter-apply-btn { background: var(--black); color: #fff; border: none; padding: 10px 22px; border-radius: var(--radius-full); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: var(--transition-fast); }
+        .filter-bar .filter-apply-btn:hover { background: var(--pure-black); transform: translateY(-1px); }
+        
         .benefits-strip { background:#fff; display:grid; grid-template-columns: repeat(4,1fr); border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light); }
         .benefit-item { text-align:center; padding:2.5rem 1.5rem; }
         .benefit-item:hover { background:var(--off-white); }
@@ -194,7 +191,7 @@
 
         .cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; opacity:0; pointer-events:none; transition:var(--transition); }
         .cart-overlay.active { opacity:1; pointer-events:all; }
-        .cart-sidebar { position:fixed; top:0; right:-460px; width:440px; max-width:92vw; height:100vh; background:#fff; z-index:2100; transition:var(--transition-slow); display:flex; flex-direction:column; box-shadow:var(--shadow-xl); }
+        .cart-sidebar { position:fixed; top:0; right:-460px; width:440px; max-width:100vw; height:100vh; background:#fff; z-index:2100; transition:var(--transition-slow); display:flex; flex-direction:column; box-shadow:var(--shadow-xl); }
         .cart-sidebar.active { right:0; }
         .cart-header { padding:1.4rem 1.8rem; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; }
         .cart-items { flex:1; overflow-y:auto; padding:1.5rem 1.8rem; }
@@ -212,10 +209,10 @@
 
         .modal { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:5000; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:var(--transition); backdrop-filter:blur(4px); }
         .modal.active { opacity:1; pointer-events:all; }
-        .modal-box { background:#fff; border-radius:var(--radius-lg); padding:2rem; width:90%; max-width:420px; position:relative; }
-        .modal-close { position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.4rem; cursor:pointer; }
+        .modal-box { background:var(--white); border-radius:var(--radius-lg); padding:2rem; width:90%; max-width:420px; position:relative; }
+        .modal-close { position:absolute; top:12px; right:16px; background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--black); }
         .modal-box h2 { font-family:'Playfair Display',serif; margin-bottom:1.5rem; }
-        .modal-box input, .modal-box select, .modal-box textarea { width:100%; padding:12px 16px; margin-bottom:1rem; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:'Inter',sans-serif; }
+        .modal-box input, .modal-box select, .modal-box textarea { width:100%; padding:12px 16px; margin-bottom:1rem; border:1px solid var(--border); border-radius:var(--radius-sm); font-family:'Inter',sans-serif; background:var(--off-white); color:var(--black); }
         .btn-google { background:#fff; border:1px solid #ccc; width:100%; justify-content:center; display:flex; gap:10px; font-weight:600; padding:14px; border-radius:var(--radius-full); cursor:pointer; color:#333; align-items:center;}
         .btn-google img { width:20px; height:20px; }
 
@@ -237,23 +234,30 @@
         .pdp-price { font-size:1.8rem; font-weight:700; margin-bottom:2rem; display:flex; align-items:baseline; gap:0.5rem; }
         .pdp-original-price { font-size:1rem; color:#bbb; text-decoration:line-through; font-weight:400; }
         .pdp-section-title { font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.5rem; color:var(--dark-gray); }
-        .pdp-sizes { display:flex; gap:10px; margin-bottom:2rem; }
-        .pdp-size-btn { width:45px; height:45px; border:1.5px solid var(--border); background:transparent; font-weight:600; border-radius:var(--radius-sm); cursor:pointer; transition:0.2s; }
+        .pdp-sizes { display:flex; gap:10px; margin-bottom:2rem; flex-wrap: wrap; }
+        .pdp-size-btn { width:45px; height:45px; border:1.5px solid var(--border); background:transparent; font-weight:600; border-radius:var(--radius-sm); cursor:pointer; transition:0.2s; color:var(--black);}
         .pdp-size-btn:hover { border-color:var(--black); }
         .pdp-size-btn.active { background:var(--black); color:#fff; border-color:var(--black); }
-        .pdp-colors { display:flex; gap:12px; margin-bottom:2.5rem; }
-        .pdp-color-dot { width:28px; height:28px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:0.2s; }
+        
+        .pdp-colors { display:flex; gap:12px; margin-bottom:2.5rem; flex-wrap: wrap; }
+        
+        /* FIX: PDP details dot visible logic on mobile and matching colors */
+        .pdp-color-dot { width:30px; height:30px; border-radius:50%; cursor:pointer; border:1px solid rgba(128,128,128,0.4); transition:0.2s; }
         .pdp-color-dot:hover { transform:scale(1.1); }
-        .pdp-color-dot.active { box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--black); }
-        .pdp-actions { display:flex; gap:1rem; margin-top:1rem; }
-        .pdp-actions .btn { justify-content:center; padding:16px; flex:1; }
+        .pdp-color-dot.active { box-shadow:0 0 0 2px var(--off-white), 0 0 0 4px var(--black); border-color:transparent; }
+        
+        .pdp-actions { display:flex; gap:1rem; margin-top:1rem; flex-wrap: wrap; }
+        .pdp-actions .btn { justify-content:center; padding:16px; flex:1; min-width: 140px; }
         
         .admin-dashboard { max-width:1400px; margin:2rem auto; display:grid; grid-template-columns:250px 1fr; gap:2rem; padding:0 2.5rem; }
         .admin-sidebar { background:#fff; padding:2rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm); height:fit-content; }
         .admin-nav button { width:100%; text-align:left; padding:12px; border:none; background:none; font-weight:600; color:var(--dark-gray); cursor:pointer; border-radius:var(--radius-sm); margin-bottom:5px; }
         .admin-nav button:hover, .admin-nav button.active { background:var(--light-gray); color:var(--black); }
-        .admin-content { background:#fff; padding:2rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm); }
-        .admin-table { width:100%; border-collapse:collapse; margin-top:1rem; }
+        .admin-content { background:#fff; padding:2rem; border-radius:var(--radius-md); box-shadow:var(--shadow-sm); overflow: hidden;}
+        
+        /* FIX: Made Admin tables horizontally scrollable on mobile */
+        .table-responsive { overflow-x: auto; width: 100%; }
+        .admin-table { width:100%; border-collapse:collapse; margin-top:1rem; min-width: 600px; }
         .admin-table th, .admin-table td { padding:12px; border-bottom:1px solid var(--border-light); text-align:left; }
         .magic-btn { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 
@@ -262,9 +266,52 @@
         .about-img-box img { width:100%; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); object-fit:cover; aspect-ratio:4/3; }
         .about-text-box { flex:1; min-width:300px; }
         
+        /* ================= MOBILE RESPONSIVENESS FIXES ================= */
         @media (max-width:1200px) { .products-grid { grid-template-columns: repeat(3,1fr); } .footer-grid { grid-template-columns:1fr 1fr 1fr; } .instagram-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (max-width:900px) { .hero { flex-direction:column; min-height:auto; } .hero-right { aspect-ratio:4/3; order:-1; } .hero-left { padding:2.5rem 1.5rem; text-align:center; } .hero-paragraph { max-width:100%; } .categories-grid { grid-template-columns: repeat(2,1fr); } .products-grid { grid-template-columns: repeat(2,1fr); } .benefits-strip { grid-template-columns: repeat(2,1fr); } .newsletter { grid-template-columns:1fr; } .newsletter-left { aspect-ratio:3/2; max-height:300px; } .footer-grid { grid-template-columns:1fr 1fr; } .nav-center { display:none; position:absolute; top:68px; left:0; right:0; background:#fff; flex-direction:column; padding:1.5rem; } .nav-center.active { display:flex; } .hamburger { display:block; } .section { padding:3rem 1rem; } .pdp-container, .admin-dashboard{grid-template-columns:1fr;} .about-story-container { gap: 2rem; padding: 2rem 1.5rem;} }
-        @media (max-width:600px) { .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } .categories-grid { grid-template-columns:1fr 1fr; } .benefits-strip { grid-template-columns:1fr 1fr; } .footer-grid { grid-template-columns:1fr; } .instagram-grid { grid-template-columns: repeat(2,1fr); } .hero-headline { font-size:2rem; } }
+        @media (max-width:900px) { 
+            .navbar { padding: 0 1.5rem; }
+            .hero { flex-direction:column; min-height:auto; } 
+            .hero-right { aspect-ratio:4/3; order:-1; } 
+            .hero-left { padding:3rem 1.5rem; text-align:center; } 
+            .hero-paragraph { max-width:100%; margin: 0 auto 2rem; } 
+            .hero-buttons { justify-content: center; }
+            .categories-grid { grid-template-columns: repeat(2,1fr); } 
+            .products-grid { grid-template-columns: repeat(2,1fr); } 
+            .benefits-strip { grid-template-columns: repeat(2,1fr); } 
+            .newsletter { grid-template-columns:1fr; } 
+            .newsletter-left { aspect-ratio:3/2; max-height:300px; } 
+            .footer-grid { grid-template-columns:1fr 1fr; } 
+            
+            /* Enhanced Mobile Menu */
+            .nav-center { display:none; }
+            .nav-center.active { display:flex; position:absolute; top:68px; left:0; width:100%; background:var(--white); border-bottom:1px solid var(--border-light); padding:1.5rem; flex-direction:column; align-items:flex-start; gap:1.5rem; z-index:999; box-shadow:var(--shadow-md); } 
+            .hamburger { display:block; } 
+            .section { padding:3rem 1rem; } 
+            .pdp-container { grid-template-columns:1fr; padding: 1.5rem; gap: 2rem; } 
+            .admin-dashboard{ grid-template-columns:1fr; padding: 0 1rem;} 
+            .about-story-container { gap: 2rem; padding: 2rem 1.5rem;} 
+        }
+        @media (max-width:600px) { 
+            .hero-headline { font-size: clamp(2rem, 8vw, 3rem); } 
+            .products-grid { grid-template-columns: repeat(2,1fr); gap:0.8rem; } 
+            .categories-grid { grid-template-columns:1fr 1fr; gap:0.8rem; } 
+            .benefits-strip { grid-template-columns:1fr; } 
+            .footer-grid { grid-template-columns:1fr; gap: 2.5rem; text-align: center; } 
+            .footer-social { justify-content: center; }
+            .instagram-grid { grid-template-columns: repeat(2,1fr); } 
+            
+            /* Input / Buttons Full Width Fixes */
+            .filter-bar { flex-direction: column; width: 100%; }
+            .filter-bar select, .filter-bar button { width: 100%; text-align: center; }
+            #searchInput { width: 100% !important; }
+            .newsletter-form { flex-direction: column; max-width: 100%; }
+            .newsletter-right { padding: 2.5rem 1.5rem; text-align: center; }
+            .newsletter-right p { margin: 0 auto 1.5rem; }
+            
+            .admin-content { padding: 1.5rem 1rem; }
+            #adminForm { grid-template-columns: 1fr !important; }
+            #adminForm > div, #adminForm > button { grid-column: span 1 !important; }
+        }
     </style>
 </head>
 <body>
@@ -277,11 +324,11 @@
     <div class="navbar-inner">
         <a class="nav-logo" onclick="scrollToSection('home')">BOYZONE</a>
         <ul class="nav-center" id="navCenter">
-            <li><a onclick="scrollToSection('home')">Home</a></li>
-            <li><a onclick="scrollToSection('shop')">Shop</a></li>
-            <li><a onclick="switchPage('allCategoriesPage')">Collections</a></li>
-            <li><a onclick="scrollToSection('about')">About</a></li>
-            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            <li><a onclick="scrollToSection('home'); toggleMobileMenu();">Home</a></li>
+            <li><a onclick="scrollToSection('shop'); toggleMobileMenu();">Shop</a></li>
+            <li><a onclick="switchPage('allCategoriesPage'); toggleMobileMenu();">Collections</a></li>
+            <li><a onclick="scrollToSection('about'); toggleMobileMenu();">About</a></li>
+            <li><a onclick="scrollToSection('contact'); toggleMobileMenu();">Contact</a></li>
         </ul>
         <ul class="nav-right">
             <li><button onclick="scrollToSection('shop'); setTimeout(()=>document.getElementById('searchInput').focus(), 500);" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
@@ -333,7 +380,7 @@
             <div class="section-header">
                 <p class="section-tag" id="shopTag">All Products</p>
                 <h2 class="section-title" id="shopTitle">Our Collection</h2>
-                <input type="text" id="searchInput" placeholder="Search products..." style="margin-top:1rem; padding:10px 20px; border:1px solid #ddd; border-radius:50px; width:250px; font-family:Inter;">
+                <input type="text" id="searchInput" placeholder="Search products..." style="margin-top:1rem; padding:10px 20px; border:1px solid var(--border); border-radius:50px; width:250px; font-family:Inter; background:var(--white); color:var(--black);">
             </div>
             <div class="filter-bar">
                 <select id="filterCategory">
@@ -466,28 +513,30 @@
         <div class="admin-content" id="manageTab">
             <h2>Product List</h2>
             <p style="color:var(--gray); margin-bottom:1rem;">Total Products: <span id="adminTotalCount">0</span></p>
-            <table class="admin-table">
-                <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
-                <tbody id="adminTableBody"></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Actions</th></tr></thead>
+                    <tbody id="adminTableBody"></tbody>
+                </table>
+            </div>
         </div>
 
         <div class="admin-content" style="display:none;" id="addTab">
             <h2 id="adminFormTitle">Add New Product</h2>
             <form id="adminForm" style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem;">
                 <input type="hidden" id="editProdId">
-                <div><label style="font-size:0.85rem; font-weight:600;">Product Name</label><input type="text" id="prodName" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <div><label style="font-size:0.85rem; font-weight:600;">Category</label><select id="prodCategory" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></select></div>
-                <div><label style="font-size:0.85rem; font-weight:600;">Price (₹)</label><input type="number" id="prodPrice" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <div><label style="font-size:0.85rem; font-weight:600;">Original Price (₹)</label><input type="number" id="prodOriginal" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></div>
-                <div><label style="font-size:0.85rem; font-weight:600;">Colors (comma separated)</label><input type="text" id="prodColors" placeholder="black, white" value="black" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;"></div>
+                <div><label style="font-size:0.85rem; font-weight:600;">Product Name</label><input type="text" id="prodName" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);" required></div>
+                <div><label style="font-size:0.85rem; font-weight:600;">Category</label><select id="prodCategory" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);"></select></div>
+                <div><label style="font-size:0.85rem; font-weight:600;">Price (₹)</label><input type="number" id="prodPrice" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);" required></div>
+                <div><label style="font-size:0.85rem; font-weight:600;">Original Price (₹)</label><input type="number" id="prodOriginal" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);"></div>
+                <div><label style="font-size:0.85rem; font-weight:600;">Colors (comma separated)</label><input type="text" id="prodColors" placeholder="black, white" value="black" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);"></div>
                 
-                <div style="grid-column: span 2; padding:1.5rem; border:1px dashed #ccc; border-radius:8px; background:#fafafa;">
+                <div style="grid-column: span 2; padding:1.5rem; border:1px dashed var(--border); border-radius:8px; background:var(--off-white);">
                     <label style="font-weight:600; display:block; margin-bottom:10px;">Upload Image OR Paste Link</label>
-                    <p style="font-size:0.75rem; color:#888; margin-bottom:5px;">Select a file from device:</p>
+                    <p style="font-size:0.75rem; color:var(--gray); margin-bottom:5px;">Select a file from device:</p>
                     <input type="file" id="prodImageFile" accept="image/*" style="margin-bottom:15px; width:100%;">
-                    <p style="font-size:0.75rem; color:#888; margin-bottom:5px;">OR paste URL (Unsplash/Google):</p>
-                    <input type="text" id="prodImageUrl" placeholder="https://..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                    <p style="font-size:0.75rem; color:var(--gray); margin-bottom:5px;">OR paste URL (Unsplash/Google):</p>
+                    <input type="text" id="prodImageUrl" placeholder="https://..." style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);">
                 </div>
                 <button type="submit" class="btn btn-black" style="grid-column: span 2; justify-content:center;" id="adminSubmitBtn">Publish Product</button>
             </form>
@@ -497,21 +546,23 @@
             <h2 id="adminCatFormTitle" style="margin-bottom:1rem;">Add New Category</h2>
             <form id="adminCategoryForm" style="display:grid; grid-template-columns:1fr; gap:1.5rem; margin-bottom:2.5rem; padding-bottom:2rem; border-bottom:1px solid var(--border-light);">
                 <input type="hidden" id="editCatId">
-                <div><label style="font-size:0.85rem; font-weight:600;">Category Name</label><input type="text" id="newCatName" placeholder="e.g. Watches" style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;" required></div>
-                <div style="padding:1.5rem; border:1px dashed #ccc; border-radius:8px; background:#fafafa;">
+                <div><label style="font-size:0.85rem; font-weight:600;">Category Name</label><input type="text" id="newCatName" placeholder="e.g. Watches" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);" required></div>
+                <div style="padding:1.5rem; border:1px dashed var(--border); border-radius:8px; background:var(--off-white);">
                     <label style="font-weight:600; display:block; margin-bottom:10px;">Upload Category Cover Image OR Paste Link</label>
                     <input type="file" id="catImageFile" accept="image/*" style="margin-bottom:15px; width:100%;">
-                    <p style="font-size:0.75rem; color:#888; margin-bottom:5px;">OR paste URL:</p>
-                    <input type="text" id="newCatImage" placeholder="https://..." style="width:100%; padding:12px; border:1px solid #ccc; border-radius:4px;">
+                    <p style="font-size:0.75rem; color:var(--gray); margin-bottom:5px;">OR paste URL:</p>
+                    <input type="text" id="newCatImage" placeholder="https://..." style="width:100%; padding:12px; border:1px solid var(--border); border-radius:4px; background:var(--white); color:var(--black);">
                 </div>
                 <button type="submit" class="btn btn-black" style="justify-content:center;" id="adminCatSubmitBtn">Add Category</button>
             </form>
 
             <h2>Existing Categories</h2>
-            <table class="admin-table">
-                <thead><tr><th>Image</th><th>Category Name</th><th>Actions</th></tr></thead>
-                <tbody id="adminCategoryTableBody"></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead><tr><th>Image</th><th>Category Name</th><th>Actions</th></tr></thead>
+                    <tbody id="adminCategoryTableBody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -618,7 +669,6 @@
     window.switchPage = function(pageId) {
         document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        document.getElementById('navCenter').classList.remove('active');
     };
 
     window.scrollToSection = function(sectionId) {
@@ -787,7 +837,7 @@
 
         document.getElementById('productsGrid').innerHTML = generateProductHTML(filtered);
     }
-    window.applyFilters = applyFilters; // Expose for Apply button
+    window.applyFilters = applyFilters; 
 
     function generateProductHTML(prodArray) {
         return prodArray.map(p => {
@@ -1146,7 +1196,7 @@
     function resetAutoSlide() { startAutoSlide(); }
 
     document.getElementById('searchInput').addEventListener('input', applyFilters); // live search still works
-    window.toggleMobileMenu = () => document.getElementById('navCenter').classList.toggle('active');
+    window.toggleMobileMenu = () => { document.getElementById('navCenter').classList.toggle('active'); }
     window.openWhatsApp = (msg) => window.open(`https://wa.me/917898592046?text=${encodeURIComponent(msg)}`, '_blank');
     window.subscribeNewsletter = () => {
         const email = document.getElementById('newsletterEmail').value;
