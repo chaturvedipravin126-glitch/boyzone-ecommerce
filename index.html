@@ -50,7 +50,7 @@
         body {
             font-family:'Inter','DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
             background:var(--off-white); color:var(--black); line-height:1.6;
-            overflow-x:hidden; /* prevents accidental horizontal scrollbar */
+            overflow-x:hidden;
             -webkit-font-smoothing:antialiased; letter-spacing:-0.01em;
             transition: background 0.3s, color 0.3s;
         }
@@ -1179,17 +1179,28 @@
         const email = document.getElementById('newsletterEmail').value;
         if (email) { showToast('Subscribed! Check your email for 10% off.'); document.getElementById('newsletterEmail').value = ''; }
     };
-    window.showToast = function(msg) { const t = document.getElementById('toast'); document.getElementById('toastMsg').innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+    
+    // FIX: Added the missing semicolon below.
+    window.showToast = function(msg) { 
+        const t = document.getElementById('toast'); 
+        document.getElementById('toastMsg').innerText = msg; 
+        t.classList.add('show'); 
+        setTimeout(() => t.classList.remove('show'), 2500); 
+    }; // <--- Yahan Semicolon Missing Tha!
 
-    // Initialize everything
-    (async function init() {
+    // FIX: Removed the IIFE wrapper `()` to stop JavaScript from misinterpreting the code.
+    async function init() {
         await fetchCategories();
         await fetchProducts();
         loadCart(); 
         loadWishlist(); 
         updateSlide(0); 
         startAutoSlide();
-    })();
+    }
+    
+    // Explicitly call the function
+    init();
+
 </script>
 </body>
 </html>
