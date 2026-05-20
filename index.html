@@ -688,16 +688,34 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // =============== 1. NEW ADMIN EMAIL SETUP YAHAN HAI ===============
+        // Admin list update rakho
     const ADMIN_EMAILS = ["vikaskurre80@gmail.com", "chaturvedipravin126@gmail.com"];
-    // ==================================================================
 
-    let currentUser = null;
-    let isAdmin = false;
-    let products = [];
-    let categoriesList = [];
-    let cart = [];
-    let wishlist = [];
+    async function checkUserRole(user) {
+        currentUser = user;
+        const userEmail = user.email.toLowerCase().trim();
+        
+        // Check if email is in the admin array
+        if(ADMIN_EMAILS.includes(userEmail)) {
+            isAdmin = true;
+            console.log("Admin logged in:", userEmail);
+            // Admin icon update
+            document.getElementById('userBtn').innerHTML = `<i class="fa-solid fa-user-shield" style="color:var(--black);"></i>`;
+            switchPage('adminPanelPage');
+            if(products.length === 0) await fetchProducts();
+            else renderAdminTable();
+            showToast("Admin access granted.");
+        } else {
+            isAdmin = false;
+            document.getElementById('userBtn').innerHTML = `<i class="fa-solid fa-user-check"></i>`;
+            const docSnap = await getDoc(doc(db, "users", user.uid));
+            if(!docSnap.exists()) { document.getElementById('profileModal').classList.add('active'); } 
+            else { showToast("Welcome back!"); }
+        }
+        loadCart(); 
+        loadWishlist();
+    }
+    
 
     window.toggleTheme = function() {
         document.body.classList.toggle('dark-theme');
