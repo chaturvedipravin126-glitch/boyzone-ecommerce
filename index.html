@@ -64,7 +64,9 @@
     /* CURSOR */
     .cursor{width:10px;height:10px;background:var(--charcoal);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s ease,width .3s,height .3s,background .3s;}
     .cursor-ring{width:36px;height:36px;border:1.5px solid var(--charcoal);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease,width .3s,height .3s,opacity .3s;}
-    @media (pointer: coarse) { 
+    
+    /* Auto disable custom cursor on touch devices to avoid layout glitches */
+    @media (hover: none) and (pointer: coarse) { 
       .cursor, .cursor-ring { display: none !important; }
       * { cursor: auto !important; }
     }
@@ -159,7 +161,7 @@
     .cat-count{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:4px;}
     .cat-label{position:absolute;top:20px;right:20px;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.85);z-index:1;border:1px solid rgba(255,255,255,.4);padding:5px 10px;}
 
-    /* HOME BENTO GRID */
+    /* HOME BENTO GRID (For Home Page ONLY) */
     .categories-bento{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:320px 220px;gap:12px;}
     .categories-bento .cat-card:nth-child(1){grid-row:span 2;background:#c8b8a2;}
     .categories-bento .cat-card:nth-child(2){background:#d6c4ae;}
@@ -167,7 +169,7 @@
     .categories-bento .cat-card:nth-child(4){background:#e2d0be;}
     .categories-bento .cat-card:nth-child(5){background:#cabba6;}
 
-    /* ALL COLLECTIONS UNIFORM GRID (THE FIX) */
+    /* ALL COLLECTIONS UNIFORM GRID (For All Collections Page) */
     .categories-uniform{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
     .categories-uniform .cat-card{height:360px;width:100%;}
 
@@ -385,7 +387,7 @@
     .wa-float{position:fixed;bottom:28px;right:28px;z-index:1500;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;box-shadow:0 4px 24px rgba(37,211,102,.4);text-decoration:none;transition:transform var(--tr-fast);}
     .wa-float:hover{transform:scale(1.1);}
 
-    /* SCROLL REVEAL */
+    /* SCROLL REVEAL (Safe Version) */
     .reveal{opacity:0;transform:translateY(40px) scale(0.98);transition:opacity 1s var(--ease-out-expo),transform 1s var(--ease-out-expo);will-change:opacity,transform;}
     .reveal.visible{opacity:1;transform:translateY(0) scale(1);}
 
@@ -558,7 +560,7 @@
     </div>
     <button class="section-link" onclick="switchPage('allCatsPage')">View All <i class="fa-solid fa-arrow-right" style="font-size:.75em;"></i></button>
   </div>
-  <div class="categories-bento reveal" id="homeCatsGrid"></div>
+  <div class="categories-bento" id="homeCatsGrid"></div>
 </section>
 
 <section class="section products-bg" id="shop">
@@ -872,7 +874,12 @@
   if(localStorage.getItem('bz_theme')==='dark'){document.body.classList.add('dark-theme');document.querySelector('#themeBtn i')?.classList.replace('fa-moon','fa-sun');}
 
   // NAVIGATION & MOBILE MENU
-  window.switchPage=function(id){document.querySelectorAll('.page-view').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);setTimeout(attachCursorHovers,300);};
+  window.switchPage=function(id){
+    document.querySelectorAll('.page-view').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    setTimeout(attachCursorHovers,300);
+  };
   window.goHome=function(){switchPage('homePage');setTimeout(()=>window.scrollTo({top:0,behavior:'smooth'}),50);};
   window.navGo=function(id){
     if(!document.getElementById('homePage').classList.contains('active')) switchPage('homePage');
@@ -896,7 +903,7 @@
   async function fetchCats(){
     const snap=await getDocs(query(collection(db,'categories'))); cats=snap.docs.map(d=>({id:d.id,...d.data()}));
     
-    // RESTORED: Auto-generate categories if DB is empty so section never goes missing
+    // Auto-generate if DB is empty to guarantee visibility
     if(cats.length===0){
       const defs=[
         {name:'Men',imageUrl:'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=600&q=80'},
@@ -1244,6 +1251,12 @@
   function updateProdCatDD(){const s=document.getElementById('prodCat'); if(s)s.innerHTML=cats.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');}
   function populateFilterCat(){const f=document.getElementById('filterCat'); if(f)f.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');}
   
+  // SCROLL REVEAL (Safe Execution)
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);io.unobserve(e.target);}});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
   // INIT
   async function init(){ await fetchCats(); await fetchProds(); }
   init();
