@@ -941,6 +941,21 @@
     setTimeout(attachCursorHovers,200);
   }
 
+  window.renderAdminCats = function() {
+    const t = document.getElementById('adminCatTableBody');
+    if(t) t.innerHTML = cats.map(c => `<tr><td><img src="${c.imageUrl}" width="40" height="40" style="object-fit:cover;border-radius:4px;"></td><td>${c.name}</td><td><button onclick="deleteCat('${c.id}')" style="color:#E53E3E;background:none;border:none;cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('');
+  }
+  
+  window.updateProdCatDD = function() {
+    const pc = document.getElementById('prodCat');
+    if(pc) pc.innerHTML = cats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  }
+  
+  window.populateFilterCat = function() {
+    const fc = document.getElementById('filterCat');
+    if(fc) fc.innerHTML = `<option value="">All Collections</option>` + cats.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+  }
+
   // PRODUCTS
   async function fetchProds(){
     const snap=await getDocs(query(collection(db,'products')));
@@ -1208,99 +1223,122 @@
       }
     }
     
-    const data={
+    const data = {
       name: document.getElementById('prodName').value,
       category: document.getElementById('prodCat').value,
-      stock: parseInt(document.getElementById('prodStock').value),
-      price: parseInt(document.getElementById('prodPrice').value),
-      originalPrice: parseInt(document.getElementById('prodOriginal').value)||0,
-      colors: document.getElementById('prodColors').value.split(',').map(c=>c.trim()),
-      sizes: document.getElementById('prodSizes').value.split(',').map(s=>s.trim()),
+      stock: parseInt(document.getElementById('prodStock').value) || 0,
+      price: parseInt(document.getElementById('prodPrice').value) || 0,
+      originalPrice: parseInt(document.getElementById('prodOriginal').value) || null,
+      colors: document.getElementById('prodColors').value.split(',').map(c => c.trim()).filter(Boolean),
+      sizes: document.getElementById('prodSizes').value.split(',').map(s => s.trim()).filter(Boolean),
       description: document.getElementById('prodDesc').value,
-      imageUrl: imageUrls.length>0?imageUrls[0]:'',
-      imageUrls: imageUrls
+      imageUrls: imageUrls,
+      imageUrl: imageUrls[0] || '' // Fallback for backwards compatibility
     };
-    
-    try{
-      if(id){await updateDoc(doc(db,'products',id),data);showToast('Successfully Updated!');}
-      else{await addDoc(collection(db,'products'),data);showToast('Product Published!');}
-      this.reset(); document.getElementById('editProdId').value=''; switchAdminTab('manageTab'); fetchProds();
-    }catch(err){alert(err.message);}
+
+    try {
+      if (id) {
+        await updateDoc(doc(db, 'products', id), data);
+        showToast('Product Updated!');
+      } else {
+        await addDoc(collection(db, 'products'), data);
+        showToast('Product Added Successfully!');
+      }
+      
+      document.getElementById('adminForm').reset();
+      document.getElementById('editProdId').value = '';
+      document.getElementById('adminFormTitle').innerText = 'Add New Product';
+      document.getElementById('adminSubmitBtn').innerText = 'Publish Product';
+      
+      fetchProds();
+      switchAdminTab('manageTab');
+    } catch(err) {
+      alert("Error saving product: " + err.message);
+    }
   });
 
   document.getElementById('adminCatForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    showToast('Saving Category...');
-    const name = document.getElementById('newCatName').value;
+    showToast('Saving category...');
+    const catName = document.getElementById('newCatName').value;
+    let imgUrl = document.getElementById('newCatImg').value;
     const file = document.getElementById('catImgFile').files[0];
-    let imageUrl = document.getElementById('newCatImg').value;
     
     try {
       if(file) {
         const r = ref(storage, `categories/${Date.now()}_${file.name}`);
-        await uploadBytes(r, file);
-        imageUrl = await getDownloadURL(r);
+        await uploadBytes(r, file); 
+        imgUrl = await getDownloadURL(r);
       }
-      await addDoc(collection(db, 'categories'), { name, imageUrl });
+      
+      await addDoc(collection(db, 'categories'), { name: catName, imageUrl: imgUrl });
       showToast('Category Added!');
-      this.reset();
+      document.getElementById('adminCatForm').reset();
       fetchCats();
-    } catch(err) { alert(err.message); }
+    } catch(err) {
+      alert('Error saving category: ' + err.message);
+    }
   });
 
-  // Admin Orders Management
-  async function fetchOrders() {
+  window.deleteCat = async function(id) {
+    if(!confirm('Delete this category permanently?')) return;
     try {
-      const q = query(collection(db, 'orders'));
-      const snap = await getDocs(q);
-      orders = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-      renderOrders();
-    } catch(e) { console.error("Orders fetch failed", e); }
+      await deleteDoc(doc(db, 'categories', id));
+      showToast('Category Deleted');
+      fetchCats();
+    } catch (err) { alert(err.message); }
   }
 
-  function renderOrders() {
-    const tbody = document.getElementById('adminOrdersBody');
-    if(!tbody) return;
-    tbody.innerHTML = orders.map(o => `
-      <tr>
-        <td style="font-family:'Space Grotesk',sans-serif;font-size:0.75rem;">${o.id.substring(0,8)}</td>
-        <td>${o.userEmail}</td>
-        <td style="font-weight:700;">₹${o.totalAmount}</td>
-        <td><span class="status-chip status-${o.status}">${o.status}</span></td>
-        <td>
-          <select class="status-select" onchange="updateOrderStatus('${o.id}', this.value)">
-            <option value="Pending" ${o.status==='Pending'?'selected':''}>Pending</option>
-            <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
-            <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
-          </select>
-        </td>
-      </tr>
-    `).join('');
+  window.fetchOrders = async function() {
+    if(!isAdmin) return;
+    try {
+      const snap = await getDocs(query(collection(db, 'orders'), orderBy('createdAt', 'desc')));
+      orders = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      
+      document.getElementById('adminOrdersBody').innerHTML = orders.map(o => `
+        <tr>
+          <td style="font-family:'Space Grotesk',sans-serif;font-size:0.8rem;text-transform:uppercase;">${o.id.slice(-6)}</td>
+          <td>${o.userEmail}</td>
+          <td style="font-weight:600;">₹${o.totalAmount.toLocaleString('en-IN')}</td>
+          <td><span class="status-chip status-${o.status}">${o.status}</span></td>
+          <td>
+            <select class="status-select" onchange="updateOrderStatus('${o.id}', this.value)">
+              <option value="Pending" ${o.status==='Pending'?'selected':''}>Pending</option>
+              <option value="Shipped" ${o.status==='Shipped'?'selected':''}>Shipped</option>
+              <option value="Delivered" ${o.status==='Delivered'?'selected':''}>Delivered</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+    } catch(err) {
+      console.error("Error fetching orders: ", err);
+    }
   }
 
-  window.updateOrderStatus = async function(orderId, newStatus) {
+  window.updateOrderStatus = async function(id, status) {
     try {
-      await updateDoc(doc(db, 'orders', orderId), { status: newStatus });
-      showToast('Status Updated');
+      await updateDoc(doc(db, 'orders', id), { status });
+      showToast('Order Status Updated');
       fetchOrders();
-    } catch (e) { alert(e.message); }
-  };
+    } catch(err) {
+      alert("Error updating order: " + err.message);
+    }
+  }
 
-  // Categories Handlers
-  function renderAdminCats(){document.getElementById('adminCatTableBody').innerHTML=cats.map(c=>`<tr><td><img src="${c.imageUrl}" width="50" height="50" style="border-radius:4px;"></td><td>${c.name}</td><td><button onclick="deleteCat('${c.id}')" style="color:#E53E3E;background:none;border:none;cursor:pointer;"><i class="fa-solid fa-trash"></i></button></td></tr>`).join('');}
-  window.deleteCat=async function(id){if(confirm('Delete?')){await deleteDoc(doc(db,'categories',id));fetchCats();}};
-  function updateProdCatDD(){const s=document.getElementById('prodCat'); if(s)s.innerHTML=cats.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');}
-  function populateFilterCat(){const f=document.getElementById('filterCat'); if(f)f.innerHTML='<option value="">All Collections</option>'+cats.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');}
-  
-  // SCROLL REVEAL
-  const io=new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);io.unobserve(e.target);}});
-  },{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // Scroll Reveal Observer Initialization
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
 
-  // INIT
-  async function init(){ await fetchCats(); await fetchProds(); }
-  init();
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Init Data Fetch
+  fetchCats();
+  fetchProds();
 
 </script>
 </body>
